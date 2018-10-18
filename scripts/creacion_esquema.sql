@@ -6,6 +6,6 @@ DROP TABLE IF EXISTS `funcionalidad`;
 CREATE TABLE `functionality` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(200) NOT NULL ,
-  PRIMARY KEY (`id`)  );
+  PRIMARY KEY (`id`)  ); borar esto!!
   
 --GRANT ALL PRIVILEGES ON pw2.* TO 'noroot'@'localhost' IDENTIFIED BY PASSWORD '*1e0c5129c5acbb000327810a08a241d08f942637' 
