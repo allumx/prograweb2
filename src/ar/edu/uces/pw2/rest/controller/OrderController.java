@@ -12,11 +12,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ar.edu.uces.pw2.business.dao.FlavourDao;
 import ar.edu.uces.pw2.business.dao.OrderDao;
 import ar.edu.uces.pw2.business.domain.*;
-
+//
 public class OrderController {
 	
-	private OrderDao orderDao;//
-
+	private OrderDao orderDao;
 	@RequestMapping(value="/getOrders", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Order> getOrders() {

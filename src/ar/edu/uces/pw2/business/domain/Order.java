@@ -1,7 +1,7 @@
 package ar.edu.uces.pw2.business.domain;
 
 import java.util.*;
-
+//
 public class Order {
 	private int id;
 	private User user;
