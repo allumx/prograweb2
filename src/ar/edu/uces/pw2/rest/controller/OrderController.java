@@ -15,7 +15,7 @@ import ar.edu.uces.pw2.business.domain.*;
 
 public class OrderController {
 	
-	private OrderDao orderDao;
+	private OrderDao orderDao;//
 
 	@RequestMapping(value="/getOrders", method=RequestMethod.GET)
 	@ResponseBody
