@@ -19,6 +19,7 @@
 	<context:component-scan base-package="ar.edu.uces.pw2.controller" />
 	<context:component-scan base-package="ar.edu.uces.pw2.rest.controller" />
 	<context:component-scan base-package="ar.edu.uces.pw2.business.dao" />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 
 	<mvc:annotation-driven />
 
