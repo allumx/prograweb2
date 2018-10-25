@@ -9,7 +9,7 @@ import ar.edu.uces.pw2.business.domain.*;
 public class FlavourDao {
 	private List <Flavour> availableFlavours = new ArrayList<Flavour>();
 	
-	Flavour f = new Flavour(1,"name",1,2);
+	public Flavour f = new Flavour(1,"name",1,2);
 	
 	public FlavourDao() {
 		availableFlavours.add(f); //esta hardcodeado para que funcione el add

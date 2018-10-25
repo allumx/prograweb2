@@ -11,13 +11,15 @@ public class Order {
 	private Date date;
 	private OrderState orderState;
 	
-	public Order (User prmUser, String prmOrderType, Date prmDate){
-		// añadir items luego de instanciar Order o
-		//incorporar List <Item> en el constructor??
-		this.user=prmUser;
-		this.itemsList = new ArrayList<Item>();
-		this.orderType=prmOrderType;
-		this.date=prmDate;		 
+	public Order (){	 
+	}
+	
+	public Order (User prmUser, List <Item> itemsList,String prmOrderType, Date prmDate){
+		//
+		this.user= prmUser;
+		this.itemsList = itemsList;
+		this.orderType = prmOrderType;
+		this.date = prmDate;		 
 	}
 	public int getId() {
 		return id;
