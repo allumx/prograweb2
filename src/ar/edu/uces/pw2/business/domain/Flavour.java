@@ -8,7 +8,6 @@ public class Flavour {
 	private int costPrice;
 	
 	public Flavour(){
-		super();
 	}
 	
 	public Flavour(int id, String prmName, int prmCostPrice, int prmSalePrice){
