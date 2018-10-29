@@ -36,7 +36,9 @@ public class OrderDao {
 	public List<Order> getAllOrders(){
         return this.ordersList;
 	}
-	private Order findById(int id) {
+	
+	
+	public Order findById(int id) {
 		for (Order order : this.ordersList) {
 			if (order.getId()==id){
 				return order;
@@ -44,12 +46,13 @@ public class OrderDao {
 		}		
 		return null;
 	}
+	
 	/**
 	 * save a new order in ordersList
 	 * @param newOrder
 	 * @return
 	 */
-	public Order save(Order newOrder){
+	public Order createOrder(Order newOrder){
 		//int lastIndex = (ordersList.size() - 1);
 		//int lastID = ordersList.get(lastIndex).getId();
 		//newOrder.setId(lastID++);
@@ -57,12 +60,19 @@ public class OrderDao {
 		return newOrder;
 	}
 	
-	/*public Order CreateOrder(Order newOrder) {
-		List<Item> itemsList = new ArrayList<Item>();
-		itemsList = newOrder.getItemsList();
-		
-		
-	}*/
+	/**
+	 * delete an item from an order
+	 * @param id
+	 */
+	public void deleteOrder(int id){
+		for (Order order : this.ordersList) {
+			if (order.getId()==id){
+				int index = ordersList.indexOf(order);
+				ordersList.remove(index);		
+			}
+		}	
+	}
+
 	/**
 	 * add an item in an order
 	 * @param order
@@ -73,6 +83,7 @@ public class OrderDao {
 		Order foundOrder = findById(id);
 		foundOrder.getItemsList().add(item);
 	}
+	
 	/**
 	 * delete an item from an order
 	 * @param id

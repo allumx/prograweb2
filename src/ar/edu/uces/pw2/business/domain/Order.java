@@ -9,18 +9,28 @@ public class Order {
 	private String qr;
 	private String orderType;
 	private Date date;
+	private int total;
 	private OrderState orderState;
 	
 	public Order (){	 
 	}
 	
-	public Order (User prmUser, List <Item> itemsList,String prmOrderType, Date prmDate){
-		//
+	public Order (User prmUser, List <Item> itemsList,String prmOrderType, Date prmDate, int total){
 		this.user= prmUser;
 		this.itemsList = itemsList;
 		this.orderType = prmOrderType;
-		this.date = prmDate;		 
+		this.date = prmDate;
+		this.total = total;
 	}
+	
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+	
 	public int getId() {
 		return id;
 	}
