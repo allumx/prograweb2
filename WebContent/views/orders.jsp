@@ -142,7 +142,7 @@
                     <tr>
                       <td>{{order.id}}</td>
                       <td>{{order.user.name}}</td>
-                      <td>{{order.state}}</td>
+                      <td>{{order.orderState}}</td>
                       <td>{{order.total}}</td>
                       <td>
 						<button data-ng-click="getOrder(order.id)" type="button" class="btn btn-info" >Info</button>
@@ -191,17 +191,17 @@
           </div>
           <div class="modal-body">
               <label for="">nro Orden: </label>
-              <p>{{selectedOrder.id}}</p>
+              <p>{{selectedOrder.orderNumber}}</p>
  			  <label for="">Items: </label>
 			  <ul >
-				  <li data-ng-repeat="items in selectedOrder.itemsList">{{items.product.name}}</li>
+				  <li data-ng-repeat="prod in selectedOrder.items.products">{{prod}}</li>
      		 </ul>
      		 <label for="">Sabores: </label>
 			  <ul>
-				  <li data-ng-repeat="items in selectedOrder.itemsList.flavourList">{{items}}</li>
+				  <li data-ng-repeat="flav in selectedOrder.items.flavours">{{flav}}</li>
      		 </ul>
      		  <label for="">Fecha:</label>
-              <p>order.date</p>
+              <p>{{selectedOrder.date | date : 'd MMMM yyyy'}}</p>
 
           </div>
           <div class="modal-footer">

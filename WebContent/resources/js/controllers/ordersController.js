@@ -10,15 +10,16 @@ angular.module('orderApp',[]).controller('orderCtrl',function($scope, $http,$win
 			 }
 	 };
             $scope.getOrders = function(){
-      		  $http.get('http://localhost:8085/PW2SpringMVCBase/getOrders').then(function(response){
+      		  $http.get('http://localhost:8080/PW2SpringMVCBase/getOrders').then(function(response){
       			  $scope.orders = response.data;
               });
             }
             
             $scope.getOrder = function(id){
-            	$scope.selectedOrder.products = [];
+            	$scope.selectedOrder.items.products = [];
+            	$scope.selectedOrder.items.flavours = [];
             	$scope.showInformation = true;
-        		  $http.post('http://localhost:8085/PW2SpringMVCBase/getOrder', id).then(function(response){
+        		  $http.post('http://localhost:8080/PW2SpringMVCBase/getOrder', id).then(function(response){
         			  $scope.selectedOrder.orderNumber = response.data.id;
         			  $scope.selectedOrder.date = response.data.date;
         			  angular.forEach(response.data, function(value, key){
@@ -31,6 +32,7 @@ angular.module('orderApp',[]).controller('orderCtrl',function($scope, $http,$win
         			        	}) 
         			        } 
         			    });
+        			  $('#logoutModal').modal('show');
                   });            	
             }
             
@@ -39,7 +41,7 @@ angular.module('orderApp',[]).controller('orderCtrl',function($scope, $http,$win
             }
             
             $scope.deleteOrder = function(id){
-      		  $http.delete('http://localhost:8085/PW2SpringMVCBase/deleteOrder/'+ id).then(function(response){
+      		  $http.delete('http://localhost:8080/PW2SpringMVCBase/deleteOrder/'+ id).then(function(response){
               });    
             }
             
