@@ -1,7 +1,7 @@
 package ar.edu.uces.pw2.business.domain;
 
 import java.util.*;
-//
+ 
 public class Order {
 	private int id;
 	private User user;
@@ -10,10 +10,14 @@ public class Order {
 	private String orderType;
 	private Date date;
 	private int total;
-	private OrderState orderState;
+	private String orderState;
 	
-	public Order (){	 
+	
+
+	public Order (){
+		
 	}
+	
 	
 	public Order (User prmUser, List <Item> itemsList,String prmOrderType, Date prmDate, int total){
 		this.user= prmUser;
@@ -21,8 +25,12 @@ public class Order {
 		this.orderType = prmOrderType;
 		this.date = prmDate;
 		this.total = total;
+		this.orderState="Pending";
 	}
 	
+	public void isDelivered(){
+		this.orderState="delivered";
+	}
 	public int getTotal() {
 		return total;
 	}
@@ -68,12 +76,8 @@ public class Order {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public OrderState getOrderState() {
+	public String getOrderState() {
 		return orderState;
-	}
-	//NO LO VEO IMPLEMENTABLE=>
-	public void setOrderState(OrderState orderState) {
-		this.orderState = orderState;
 	}
 	@Override
 	public int hashCode() {

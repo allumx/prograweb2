@@ -34,7 +34,14 @@ public class OrderDao {
 	 * @return 
 	 */
 	public List<Order> getAllOrders(){
-        return this.ordersList;
+		List<Order>PendingOrders = new ArrayList ();
+		
+		for (Order order : ordersList) {
+			if (order.getOrderState().equals("Pending")){
+				PendingOrders.add(order);
+			}
+		}
+		return PendingOrders;
 	}
 	
 	
@@ -72,7 +79,14 @@ public class OrderDao {
 			}
 		}	
 	}
-
+	
+	public void changeState(int id){
+		for (Order order : this.ordersList) {
+			if (order.getId()==id){
+				order.isDelivered();
+			}
+		}
+	}
 	/**
 	 * add an item in an order
 	 * @param order

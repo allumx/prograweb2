@@ -44,6 +44,10 @@ angular.module('orderApp',[]).controller('orderCtrl',function($scope, $http,$win
               });    
             }
             
+            $scope.changeOrderState = function(id){
+        		  $http.post('http://localhost:8080/PW2SpringMVCBase/changeOrderState/'+ id).then(function(response){
+                });    
+              }
             $scope.init = function(){
             	$scope.getOrders();
               }

@@ -108,7 +108,6 @@
               </div>
             </div>
           </div>
-	<button data-ng-click="getOrders()">getOrders</button>
 
           <!-- DataTables Example -->
           <div class="card mb-3">

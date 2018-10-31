@@ -67,6 +67,13 @@ public class OrderController {
 		return orderDao.getAllOrders(); 
 	}
 	
+	@RequestMapping(value="/changeOrderState/{id}", method=RequestMethod.POST)
+	@ResponseBody
+	public void changeOrderState(@PathVariable int id) {
+		System.out.println("OrderController:changeOrderState");
+		orderDao.changeState(id);		 
+	}
+	
 	@Autowired
 	public void setFunctionalityDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
