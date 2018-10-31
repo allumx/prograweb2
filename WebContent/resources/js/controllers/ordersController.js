@@ -1,22 +1,21 @@
 'use-strict';
 angular.module('orderApp',[]).controller('orderCtrl',function($scope, $http,$window){
 	 $scope.showInformation = false;
-	 $scope.selectedOrder = {
-			 orderNumber: null,
-			 date: null,
-			 items: {
-				 flavours: [],
-				 products: []
-			 }
-	 };
+	 
             $scope.getOrders = function(){
       		  $http.get('http://localhost:8080/PW2SpringMVCBase/getOrders').then(function(response){
       			  $scope.orders = response.data;
+      			  $scope.totalOrders=response.data.length;
               });
             }
             
             $scope.getOrder = function(id){
-            	$scope.selectedOrder.items.products = [];
+            	//items=[];
+            	$http.post('http://localhost:8080/PW2SpringMVCBase/getOrder', id).then(function(response){
+            		$scope.selectedOrder=response.data;
+            		$('#logoutModal').modal('show');
+      			});
+            	/*$scope.selectedOrder.items.products = [];
             	$scope.selectedOrder.items.flavours = [];
             	$scope.showInformation = true;
         		  $http.post('http://localhost:8080/PW2SpringMVCBase/getOrder', id).then(function(response){
@@ -32,8 +31,8 @@ angular.module('orderApp',[]).controller('orderCtrl',function($scope, $http,$win
         			        	}) 
         			        } 
         			    });
-        			  $('#logoutModal').modal('show');
-                  });            	
+        			  $('#logoutModal').modal('show');*/
+                              	
             }
             
             $scope.changeOrderState = function(id){

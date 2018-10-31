@@ -99,13 +99,11 @@
                   <div class="card-body-icon">
                     <i class="fas fa-fw fa-shopping-cart"></i>
                   </div>
-                  <div class="mr-5">oreders.lenght</div>
+                  <div class="mr-5">{{totalOrders}}</div>
                 </div>
                 <a class="card-footer text-white clearfix small z-1" href="#">
-                  <span class="float-left">View Details</span>
-                  <span class="float-right">
-                    <i class="fas fa-angle-right"></i>
-                  </span>
+                  <span class="float-left">Ordenes Pendientes</span>
+                  
                 </a>
               </div>
             </div>
@@ -180,7 +178,7 @@
     </a>
 
     <!-- Logout Modal-->
-    <div data-ng-if="showInformation" class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -191,9 +189,14 @@
           </div>
           <div class="modal-body">
               <label for="">nro Orden: </label>
-              <p>{{selectedOrder.orderNumber}}</p>
+              {{selectedOrder.id}}</p>
  			  <label for="">Items: </label>
-			  <ul >
+ 			  <ul data-ng-repeat="item in selectedOrder.itemsList" >
+			  		<h1>{{item.product.name}}</h1>
+				  <li data-ng-repeat="flav in item.flavourList">{{flav.name}}</li>
+     		 </ul> 
+     		 <p>{{selectedOrder.date | date : 'd MMMM yyyy'}}</p>
+			  <!--  <ul >
 				  <li data-ng-repeat="prod in selectedOrder.items.products">{{prod}}</li>
      		 </ul>
      		 <label for="">Sabores: </label>
@@ -201,7 +204,7 @@
 				  <li data-ng-repeat="flav in selectedOrder.items.flavours">{{flav}}</li>
      		 </ul>
      		  <label for="">Fecha:</label>
-              <p>{{selectedOrder.date | date : 'd MMMM yyyy'}}</p>
+              <p>{{selectedOrder.date | date : 'd MMMM yyyy'}}</p>-->
 
           </div>
           <div class="modal-footer">
