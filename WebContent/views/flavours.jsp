@@ -72,11 +72,16 @@
             <!-- DataTables Example -->
             <div class="card mb-3">
                <div class="card-header">
+               
                   <i class="fas fa-table"></i>
                   Gustos
+                  <button class="btn btn-success" data-toggle="modal" data-target="#addModal"  data-ng-click="" type="button">Agregar</button>
+                  
                </div>
+               
                <div class="card-body">
                   <div class="table-responsive">
+                  
                      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                            <tr>
@@ -131,11 +136,11 @@
       <i class="fas fa-angle-up"></i>
       </a>
       <!-- Logout Modal-->
-      <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog" role="document">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Editar gusto</h5>
+                  <h5 class="modal-title" id="exampleModalLabel" >Editar gusto</h5>
                   <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">×</span>
                   </button>
@@ -161,11 +166,48 @@
                
                </div>
                <div class="modal-footer">
-                  <button class="btn btn-secondary" data-ng-click="editFlavour(newFlavour)" type="button">Modificar</button>
+                  <button class="btn btn-success" data-ng-click="editFlavour(newFlavour)" type="button">Modificar</button>
                </div>
             </div>
          </div>
       </div>
+      
+            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel" >Editar gusto</h5>
+                  <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">×</span>
+                  </button>
+               </div>
+              <form name="flavourForm">
+               <div class="modal-body">
+               	  <div>
+                  <label for="">Nombre: </label>
+                  <input ng-model="newFlavour.name" required="required" type="text"></input>
+                  </div>                  
+                  <div>
+                  <label for="">Precio de venta: </label>
+                  <input ng-model="newFlavour.salePrice" required="required" type="number"></input>
+                  </div>
+                  
+                  <div>
+                  <label for="">Costo: </label>
+                  <input ng-model="newFlavour.costPrice"  required="required" type="number"></input>
+                  </div>
+               
+               </div>
+               <div class="modal-footer">
+                  <button class="btn btn-success" data-ng-click="addFlavour(newFlavour)"  ng-disabled="flavourForm.$invalid" type="button">Agregar</button>
+               </div>
+                         </form>
+
+            </div>
+         </div>
+      </div>
+      
+      
       <!-- Bootstrap core JavaScript-->
       <script src="../resources/vendor/jquery/jquery.min.js"></script>
       <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
