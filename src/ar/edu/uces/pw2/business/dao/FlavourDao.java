@@ -1,60 +1,67 @@
 package ar.edu.uces.pw2.business.dao;
 import java.util.*;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import ar.edu.uces.pw2.business.domain.*;
 
 @Repository
 public class FlavourDao {
-	private List <Flavour> availableFlavours = new ArrayList<Flavour>();
-	
-	public Flavour f = new Flavour(1,"name",1,2);
+	private SessionFactory sessionFactory;
 	
 	public FlavourDao() {
-		availableFlavours.add(f); //esta hardcodeado para que funcione el add
+		super();
 	}
 	
+	
+	@Autowired
+	public FlavourDao(SessionFactory sessionFactory) {
+		super();
+		this.sessionFactory = sessionFactory;
+	}
+	
+	@Transactional(readOnly = true)
 	public List<Flavour> getFlavours() {
-		return availableFlavours;
+		Session session = sessionFactory.getCurrentSession();
+        List<Flavour> falvours  = (List<Flavour>) session.createQuery("from Flavour").list();
+		return falvours;
 	}
 	
+	@Transactional(readOnly = true)
+	public Flavour getFlavour(int id) {
+		Session session = sessionFactory.getCurrentSession();
+        return (Flavour) session.get(Flavour.class, id);
+	}
+	
+	
+	@Transactional(readOnly = false)
 	public Flavour addFlavour(Flavour newFlavour){
-		int lastIndex = (availableFlavours.size() - 1 );
-		int lastID = availableFlavours.get(lastIndex).getId();
-		newFlavour.setId(++lastID);
-		availableFlavours.add(newFlavour);
+		Session session = sessionFactory.getCurrentSession();
+		session.save(newFlavour);
 		return newFlavour;
 	}
 	
-	public void deleteFlavour(int id){
-		for (Flavour flavour : this.availableFlavours) {
-			if (flavour.getId()==id){
-				int index = availableFlavours.indexOf(flavour);
-				availableFlavours.remove(index);		
-			}
-		}	
+	@Transactional(readOnly = false)
+	public boolean deleteFlavour(int id){
+		Session session = sessionFactory.getCurrentSession();
+		Flavour flavourtoDelete = new Flavour();
+		flavourtoDelete.setId(id);
+		session.delete(flavourtoDelete);
+        
+		return true;
 	}
 	
-	public Flavour getFlavour(int id) {
-		for (Flavour flavour : this.availableFlavours) {
-			if (flavour.getId()==id){
-				return flavour;
-			}
-		}		
-		return null;
-	}
 
+	@Transactional(readOnly = false)
 	public Flavour editFlavour(Flavour flavourToEdit) {
-		for (Flavour flavour : this.availableFlavours) {
-			if (flavour.getId() == flavourToEdit.getId()){
-				flavour.setCostPrice(flavourToEdit.getCostPrice());
-				flavour.setSalePrice(flavourToEdit.getSalePrice());
-				flavour.setName(flavourToEdit.getName());
-				return flavour;
-			}
-		}
-		return null;
+
+		Session session = sessionFactory.getCurrentSession();
+		session.update(flavourToEdit);
+		return flavourToEdit;
 	}
 
 }

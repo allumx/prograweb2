@@ -48,7 +48,7 @@ public class OrderController {
 	@ResponseBody
 	public void createFlavour(@RequestBody int id, Item newItem) {
 		System.out.println("OrderController:addItem");
-		orderDao.addItem(id, newItem);		 
+		//orderDao.addItem(id, newItem);		 
 	}
 	
 	@RequestMapping(value="/deleteItem/{id,item}", method=RequestMethod.DELETE)//averiguar pasar dos parametros
@@ -75,7 +75,7 @@ public class OrderController {
 	}
 	
 	@Autowired
-	public void setFunctionalityDao(OrderDao orderDao) {
+	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
 	}
 	

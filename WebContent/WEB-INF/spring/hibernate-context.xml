@@ -13,7 +13,7 @@
 	<context:component-scan base-package="ar.edu.uces.pw2.business.dao" />
 
 	<bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="driverClass" value="${database.driverClass}" />
 		<property name="jdbcUrl" value="${database.jdbcUrl}" />
 		<property name="user" value="${database.user}" />
 		<property name="password" value="${database.password}" />
@@ -26,16 +26,19 @@
 
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
 		<property name="dataSource" ref="myDataSource" />
-		<property name="mappingResources">
+		<property name="packagesToScan">
 			<list>
-				<value>/ar/edu/uces/pw2/business/domain/Functionality.hbm.xml</value>
+				<value>ar.edu.uces.pw2.business.domain</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
+				<!-- prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop-->
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hbm2ddl.auto">validate</prop>
+				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.use_sql_comments">false</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="cache.provider_class">org.hibernate.cache.internal.NoCacheProvider</prop>
 			</props>
 		</property>

@@ -2,9 +2,21 @@ package ar.edu.uces.pw2.business.domain;
 
 import java.util.*;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Item {
+	
+	@Id
+	@GeneratedValue
 	private int id;
+	@OneToOne
 	private Product product;
+	@ManyToMany
 	private List <Flavour> flavourList;
 	
 	public Item() {	
