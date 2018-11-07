@@ -2,13 +2,17 @@ package ar.edu.uces.pw2.business.domain;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
-@Entity
+
+@Entity 
+@Table(name = "Orden")
 public class Order {
 	
 	@Id
@@ -16,7 +20,7 @@ public class Order {
 	private int id;
 	@OneToOne
 	private User user;
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	private List <Item> itemsList;
 	private String qr;
 	private String orderType;

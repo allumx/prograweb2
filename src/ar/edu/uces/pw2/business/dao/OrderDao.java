@@ -19,6 +19,10 @@ public class OrderDao {
 	private ItemDao itemDao;
 	private List<Order> ordersList = new ArrayList<Order>();
 
+	public OrderDao() {
+		super();
+	}
+
 	@Autowired
 	public OrderDao(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;

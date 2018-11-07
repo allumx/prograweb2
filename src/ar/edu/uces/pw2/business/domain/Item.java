@@ -2,13 +2,16 @@ package ar.edu.uces.pw2.business.domain;
 
 import java.util.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table (name="n")
 public class Item {
 	
 	@Id
@@ -16,7 +19,7 @@ public class Item {
 	private int id;
 	@OneToOne
 	private Product product;
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.ALL)
 	private List <Flavour> flavourList;
 	
 	public Item() {	

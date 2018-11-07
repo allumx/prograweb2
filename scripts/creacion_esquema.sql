@@ -7,7 +7,7 @@ CREATE TABLE `functionality` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `description` VARCHAR(200) NOT NULL ,
   PRIMARY KEY (`id`)  ); borar esto!! asdasdsadsdsa
-  
+
   
 INSERT INTO product (name, quantity) 
 VALUES ('vasito',2);
