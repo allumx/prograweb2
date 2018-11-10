@@ -42,5 +42,10 @@ public class ProductDao {
         List<Product> products  = (List<Product>) session.createQuery("from Product").list();
 		return products;
 	}
+
+	public Product getProductById(int id) {
+		Session session = sessionFactory.getCurrentSession();
+        return (Product) session.get(Product.class, id);
+	}
 }
 

@@ -28,10 +28,7 @@ public class OrderController {
 	@RequestMapping(value="/createOrder", method=RequestMethod.POST)
 	@ResponseBody
 	public Order createOrder(@RequestBody Order newOrder) {
-		System.out.println("OrderController:createOrder");
-		List<Order> listaOrd=orderDao.getAllOrders();
-		int id = listaOrd.size();
-		newOrder.setId(id);
+
 		Order order = orderDao.createOrder(newOrder);		
 	    return order;
 	}

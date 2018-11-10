@@ -8,6 +8,8 @@ CREATE TABLE `functionality` (
   `description` VARCHAR(200) NOT NULL ,
   PRIMARY KEY (`id`)  ); borar esto!! asdasdsadsdsa
 
+INSERT INTO User(address,email, name, password,phone,type) 
+VALUES ('asdfasdf','asdf@sdf', 'asdfadsf','asdfasdf',55555,'aaaaa');
   
 INSERT INTO product (name, quantity) 
 VALUES ('vasito',2);

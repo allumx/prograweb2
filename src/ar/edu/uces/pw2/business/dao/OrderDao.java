@@ -17,6 +17,10 @@ import ar.edu.uces.pw2.business.domain.*;
 public class OrderDao {
 	private SessionFactory sessionFactory;
 	private ItemDao itemDao;
+	private FlavourDao flavourDao;
+	private ProductDao productDao;
+	private UserDao userDao;
+	
 	private List<Order> ordersList = new ArrayList<Order>();
 
 	public OrderDao() {
@@ -24,15 +28,18 @@ public class OrderDao {
 	}
 
 	@Autowired
-	public OrderDao(SessionFactory sessionFactory) {
+	public OrderDao(SessionFactory sessionFactory,FlavourDao flavourDao, ProductDao productDao, UserDao userDao  ) {
 		this.sessionFactory = sessionFactory;
+		this.flavourDao = flavourDao;
+		this.productDao= productDao;
+		this.userDao = userDao;
 	}
 
 	// TODO: ver el tema del pending por criterio
 	@Transactional(readOnly = true)
 	public List<Order> getAllOrders() {
 		Session session = sessionFactory.getCurrentSession();
-		List<Order> orders = (List<Order>) session.createQuery("from Functionality").list();
+		List<Order> orders = (List<Order>) session.createQuery("from Order").list();
 		return orders;
 	}
 	
@@ -46,8 +53,20 @@ public class OrderDao {
 	
 	@Transactional(readOnly = false)
 	public Order createOrder(Order newOrder) {
-		Session session = sessionFactory.getCurrentSession();		
-		session.save(newOrder);		
+		Session session = sessionFactory.getCurrentSession();	
+		for (Item item : newOrder.getItemsList()) {
+			List<Flavour> persistentFlavours = new ArrayList<Flavour>();
+			for (Flavour flavour : item.getFlavourList()) {
+				persistentFlavours.add(flavourDao.getFlavour(flavour.getId()));
+			}
+			item.setFlavourList(persistentFlavours);
+			
+			item.setProduct(productDao.getProductById(item.getProduct().getId()));
+		}
+		
+		newOrder.setUser(userDao.getUserByID(newOrder.getUser().getId()));
+		session.merge(newOrder);
+		
 		return newOrder;
 	}
 
