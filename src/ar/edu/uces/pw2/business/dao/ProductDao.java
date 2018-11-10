@@ -11,7 +11,7 @@ public class ProductDao {
 	
 	Product vasito = new Product(0,"vasito",2);
 	Product cucurucho  = new Product(1,"cucurucho ",2);
-	Product cuatro  = new Product(2,"cuatro ",2);
+	Product cuatro  = new Product(2,"cuarto ",2);
 	Product medio  = new Product(3,"medio",3);
 	Product kilo  = new Product(4,"kilo",4);
 		
