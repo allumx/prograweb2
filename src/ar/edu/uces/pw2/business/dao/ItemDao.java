@@ -10,7 +10,7 @@ import ar.edu.uces.pw2.business.domain.*;
 public class ItemDao {
 	private FlavourDao flavourDao;
 	private Item item;
-	private Product prod = new Product (0,"vasito",2);
+	//private Product prod = new Product (0,"vasito",2);
 	
 		
 	public ItemDao (Item prmItem ){

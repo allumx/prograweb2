@@ -1,7 +1,6 @@
 'use-strict';
 angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $http,$window){
-	$scope.miflavour = null; 
-	
+
 	$scope.select=[];
 	$scope.itemsList=[];
 	$scope.selectedProduct="";
@@ -79,13 +78,23 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
     		 }	 
     	 }
      }
-     
+     $scope.getCost=function(){
+    	 var total=0;
+    	 if($scope.itemsList.length==0)
+    		 return "$ "+0.0;
+    	 else{
+    		 for(i in $scope.itemsList){
+    			 total=total+$scope.itemsList[i].product.price;
+    		 }
+    		 return "$ "+total;
+    	 }
+     }
      $scope.init = function(){
     	 $scope.getFlavours();
          $scope.getProducts();
          var a=1;
      }
             
-            $scope.init();
+     $scope.init();
             
 });

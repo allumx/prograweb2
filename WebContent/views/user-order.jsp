@@ -114,7 +114,7 @@
                             <li data-ng-repeat="flav in item.flavourList">{{flav.name}}</li>
                         </ul>
                                  <div>
-                            <h4>TOTAL: {{total}}</h4>
+                            <h4>TOTAL: {{getCost()}}</h4>
                         </div>
                         <div>
                             <button class="btn btn-success" data-ng-click="createOrder()" type="button">Completar orden</button>
