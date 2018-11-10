@@ -2,6 +2,9 @@
 angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $http,$window){
 	$scope.miflavour = null; 
 	
+	$scope.itemsList=[];
+	$scope.selectedProduct="";
+	var selectedFlavours=[];
 
      $scope.getFlavours = function(){
 		  $http.get('http://localhost:8080/PW2SpringMVCBase/getFlavours').then(function(response){
@@ -20,13 +23,20 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
 
      } 
      
-     $scope.additem= function(){
-    	 //aca se agrega se crea el objeto
+     $scope.addItem= function(){
+    	 var item={};
+    	 item.product=$scope.selectedProduct;
+    	 item.flavourList=selectedFlavours;
+    	 $scope.itemsList.push(item);
+    	
+    	 
      } 
      
      $scope.addFlavour = function(flavour){
-    	 $scope.miflavour = flavour.name;
-    	 //aca se pushea a itemlist.flavourList
+    	 if(selectedFlavours.length<$scope.selectedProduct.quantity)
+    		 selectedFlavours.push(flavour);
+    	 else
+    		 alert("No se admiten mas gustos por favor reinicie el producto");
   }
      $scope.completeOrder= function(){
     	 //enviamos todo el objeto de orden validado 
@@ -35,7 +45,9 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
         });
      } 
      
-     
+     $scope.selectProduct=function(){
+    	 selectedFlavours=[];
+     }
             $scope.init = function(){
             	$scope.getFlavours();
             	$scope.getProducts();

@@ -89,14 +89,16 @@
                     <form>
                         <div class="form-group">
                             <label for="formGroupExampleInput">Helados </label>
-                            <select>
+                            <!-- <select data-ng-change="selectProduct()">
                                 <option data-ng-repeat="product in products">{{product.name}}</option>
-                            </select>
+                            </select> -->
+                            <select ng-options="product as product.name for product in products" 
+   									ng-model="selectedProduct" ng-change="selectProduct()"></select>
                         </div>
                         <div class="form-group">
                             <label for="formGroupExampleInput2">Gustos</label>
-                            <div data-ng-repeat="flavour in flavours">
-                                <button type="button" data-ng-click="addFlavour(flavour)" class="btn btn-outline-primary">{{flavour.name}}</button>
+                            <div >
+                                <button data-ng-repeat="flavour in flavours" type="button" data-ng-click="addFlavour(flavour)" class="btn btn-outline-primary">{{flavour.name}}</button>
                             </div>
                         </div>
                         <div>
@@ -110,7 +112,7 @@
                             <label for="formGroupExampleInput">Mi pedido </label>
                         </div>
                         <label for="">Helados </label>
-                        <ul data-ng-repeat="item in order.itemsList" >
+                        <ul data-ng-repeat="item in itemsList" >
                             <h1>{{item.product.name}}</h1>
                             <li data-ng-repeat="flav in item.flavourList">{{flav.name}}</li>
                         </ul>

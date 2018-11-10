@@ -9,10 +9,22 @@ import ar.edu.uces.pw2.business.domain.*;
 public class FlavourDao {
 	private List <Flavour> availableFlavours = new ArrayList<Flavour>();
 	
-	public Flavour f = new Flavour(1,"name",1,2);
+	
+	
 	
 	public FlavourDao() {
-		availableFlavours.add(f); //esta hardcodeado para que funcione el add
+		Flavour f1 = new Flavour(1,"Dulce de leche",1,2);
+		Flavour f2 = new Flavour(2,"Chocolate",1,2);
+		Flavour f3 = new Flavour(3,"Frutilla",1,2);
+		Flavour f4 = new Flavour(4,"Sambayon",1,2);
+		Flavour f5 = new Flavour(5,"Banana split",1,2);
+		Flavour f6 = new Flavour(6,"Crema americana",1,2);
+		availableFlavours.add(f1); //esta hardcodeado para que funcione el add
+		availableFlavours.add(f2);
+		availableFlavours.add(f3);
+		availableFlavours.add(f4);
+		availableFlavours.add(f5);
+		availableFlavours.add(f6);
 	}
 	
 	public List<Flavour> getFlavours() {
