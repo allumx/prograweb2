@@ -81,6 +81,7 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
      }
      $scope.getCost=function(){
     	 var total=0;
+    	 debugger
     	 if($scope.itemsList.length==0)
     		 return "$ "+0.0;
     	 else{
