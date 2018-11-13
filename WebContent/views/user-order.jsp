@@ -69,21 +69,7 @@
         </ul>
         <div id="content-wrapper">
             <!-- Icon Cards-->
-            <div class="row">
-                <div class="col-xl-3 col-sm-6 mb-3">
-                    <div class="card text-white bg-success o-hidden h-100">
-                        <div class="card-body">
-                            <div class="card-body-icon">
-                                <i class="fas fa-fw fa-shopping-cart"></i>
-                            </div>
-                            <div class="mr-5">{{totalOrders}}</div>
-                        </div>
-                        <a class="card-footer text-white clearfix small z-1" href="#">
-                        <span class="float-left">Mis ordenes Pendientes</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+
             <div class="row">
                 <div class="col-md-6">
                     <form>
@@ -92,14 +78,14 @@
                             <select id="combo" ng-options="product as product.name for product in products" 
    									ng-model="selectedProduct" ng-change="selectProduct()"></select>
                         </div>
-                        <div class="form-group">
-                            <label for="formGroupExampleInput2">Gustos</label>
+                        <div class="form-group" ng-show="canshowFlavours">
+                            <label for="formGroupExampleInput2">Gustoss</label>
                             <div >
                                 <button data-ng-repeat="flavour in flavours" type="button" ng-class="{'active':flavour.selectFl==true}" data-ng-click="addFlavour(flavour)" class="btn btn-outline-primary">{{flavour.name}}</button>
                             </div>
                         </div>
                         <div>
-                            <button class="btn btn-secondary" data-ng-click="addItem()" type="button">Agregar</button>
+                            <button class="btn btn-secondary" data-ng-click="addItem()" type="button" ng-if="selectedFlavours.length > 0">Agregar</button>
                         </div>
                     </form>
                 </div>
@@ -117,7 +103,7 @@
                             <h4>TOTAL: {{getCost()}}</h4>
                         </div>
                         <div>
-                            <button class="btn btn-success" data-ng-click="createOrder()" type="button">Completar orden</button>
+                            <button ng-if="canShowButtonOrder" class="btn btn-success" data-ng-click="createOrder()" type="button">Completar orden</button>
                         </div>
                     </form>
                 </div>

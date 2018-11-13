@@ -3,8 +3,10 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
 
 	$scope.select=[];
 	$scope.itemsList=[];
-	$scope.selectedProduct="";
-	var selectedFlavours=[];
+	$scope.selectedProduct='';
+	$scope.canshowFlavours = false;
+	$scope.canShowButtonOrder = false;
+	$scope.selectedFlavours=[];
 
      $scope.getFlavours = function(){
 		  $http.get('http://localhost:8080/PW2SpringMVCBase/getFlavours').then(function(response){
@@ -19,26 +21,23 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
         });
   }
      
-     $scope.addProduct= function(product){
-    	 //aca se agrega  a itemlist. product
-
-     } 
-     
      $scope.addItem= function(){
     	 var item={};
     	 item.product=$scope.selectedProduct;
-    	 item.flavourList=selectedFlavours;
+    	 item.flavourList=$scope.selectedFlavours;
     	 $scope.itemsList.push(item);
     	 setBtnUnselect();
     	 $scope.selectedProduct="";
-    	 
+    	 $scope.canshowFlavours = false;
+    	 $scope.canShowButtonOrder = true;	
+    	 $scope.selectedFlavours =[];
      } 
      
      $scope.addFlavour = function(flavour){
     	 if($scope.selectedProduct!=""){
     		 if(!flavour.selectFl){
-        		 if(selectedFlavours.length<$scope.selectedProduct.quantity){
-            		 selectedFlavours.push(flavour);
+        		 if($scope.selectedFlavours.length<$scope.selectedProduct.quantity){
+            		 $scope.selectedFlavours.push(flavour);
             		 flavour.selectFl=true;
             		 
             	 }
@@ -63,7 +62,9 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
      } 
      
      $scope.selectProduct=function(){
-    	 selectedFlavours=[];
+    	 $scope.selectedFlavours=[];
+    	 $scope.canshowFlavours = true;
+    	 setBtnUnselect();
      }
      var setBtnUnselect=function(){
     	 for(i in $scope.flavours){
@@ -71,9 +72,9 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
     	 }
      }
      var rmFlfromArray=function(fl){
-    	 for(i in selectedFlavours){
-    		 if(selectedFlavours[i].id==fl.id){
-    			 selectedFlavours.splice(i,1);
+    	 for(i in $scope.selectedFlavours){
+    		 if($scope.selectedFlavours[i].id==fl.id){
+    			 $scope.selectedFlavours.splice(i,1);
     			 break;
     		 }	 
     	 }
