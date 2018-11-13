@@ -1,6 +1,6 @@
 package ar.edu.uces.pw2.business.domain;
 
-import java.util.*;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -8,10 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
-@Table (name="n")
 public class Item {
 	
 	@Id
@@ -20,6 +21,7 @@ public class Item {
 	@OneToOne
 	private Product product;
 	@ManyToMany(cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List <Flavour> flavourList;
 	
 	public Item() {	

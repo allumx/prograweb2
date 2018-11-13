@@ -10,6 +10,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+
 
 @Entity 
 @Table(name = "Orden")
@@ -21,6 +25,7 @@ public class Order {
 	@OneToOne
 	private User user;
 	@ManyToMany(cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List <Item> itemsList;
 	private String qr;
 	private String orderType;
