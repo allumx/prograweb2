@@ -1,10 +1,27 @@
 package ar.edu.uces.pw2.business.domain;
 
-import java.util.*;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+@Entity
 public class Item {
+	
+	@Id
+	@GeneratedValue
 	private int id;
+	@OneToOne
 	private Product product;
+	@ManyToMany(cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List <Flavour> flavourList;
 	
 	public Item() {	

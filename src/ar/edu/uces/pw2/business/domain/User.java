@@ -1,7 +1,15 @@
 package ar.edu.uces.pw2.business.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class User {
 	
+	@Id
+	@GeneratedValue
+	private int id;
 	private String name;
 	private String email;
 	private String address;
@@ -20,6 +28,14 @@ public class User {
 		this.phone = phone;
 		this.password = password;
 		this.type = type;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {

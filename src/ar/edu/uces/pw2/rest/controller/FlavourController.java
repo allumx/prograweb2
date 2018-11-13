@@ -64,7 +64,7 @@ public class FlavourController {
 	
 	
 	@Autowired
-	public void setFunctionalityDao(FlavourDao flavourDao) {
+	public void setFlavourDao(FlavourDao flavourDao) {
 		this.flavorDao = flavourDao;
 	}
 

@@ -1,10 +1,31 @@
 package ar.edu.uces.pw2.business.domain;
 
 import java.util.*;
- 
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+
+
+@Entity 
+@Table(name = "Orden")
 public class Order {
+	
+	@Id
+	@GeneratedValue
 	private int id;
+	@OneToOne
 	private User user;
+	@ManyToMany(cascade=CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List <Item> itemsList;
 	private String qr;
 	private String orderType;

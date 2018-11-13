@@ -28,10 +28,7 @@ public class OrderController {
 	@RequestMapping(value="/createOrder", method=RequestMethod.POST)
 	@ResponseBody
 	public Order createOrder(@RequestBody Order newOrder) {
-		System.out.println("OrderController:createOrder");
-		List<Order> listaOrd=orderDao.getAllOrders();
-		int id = listaOrd.size();
-		newOrder.setId(id);
+
 		Order order = orderDao.createOrder(newOrder);		
 	    return order;
 	}
@@ -48,7 +45,7 @@ public class OrderController {
 	@ResponseBody
 	public void createFlavour(@RequestBody int id, Item newItem) {
 		System.out.println("OrderController:addItem");
-		orderDao.addItem(id, newItem);		 
+		//orderDao.addItem(id, newItem);		 
 	}
 	
 	@RequestMapping(value="/deleteItem/{id,item}", method=RequestMethod.DELETE)//averiguar pasar dos parametros
@@ -75,7 +72,7 @@ public class OrderController {
 	}
 	
 	@Autowired
-	public void setFunctionalityDao(OrderDao orderDao) {
+	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;
 	}
 	
