@@ -103,7 +103,7 @@
                             <h4>TOTAL: {{getCost()}}</h4>
                         </div>
                         <div>
-                            <button ng-if="canShowButtonOrder" class="btn btn-success" data-ng-click="createOrder()" type="button">Completar orden</button>
+                            <button ng-if="canShowButtonOrder" class="btn btn-success" data-ng-click="completeOrder()" type="button">Completar orden</button>
                         </div>
                     </form>
                 </div>

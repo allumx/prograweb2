@@ -1,6 +1,6 @@
 'use-strict';
 angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $http,$window){
-
+	$scope.order={};
 	$scope.select=[];
 	$scope.itemsList=[];
 	$scope.selectedProduct='';
@@ -55,10 +55,13 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
     	 
   }
      $scope.completeOrder= function(){
-    	 //enviamos todo el objeto de orden validado 
-   		  $http.get('http://localhost:8080/PW2SpringMVCBase/createOrder', order).then(function(response){
-			  location.reload();
-        });
+    	 //enviamos todo el objeto de orden validado  
+    	 createObjOrder();
+    	
+    	 $http.post('http://localhost:8080/PW2SpringMVCBase/createOrder', $scope.order).then(function(response){  
+        debugger
+    	 });
+    	 
      } 
      
      $scope.selectProduct=function(){
@@ -82,19 +85,38 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
      $scope.getCost=function(){
     	 var total=0;
     	 if($scope.itemsList.length==0)
-    		 return "$ "+0.0;
+    		 return 0.0;
     	 else{
     		 for(i in $scope.itemsList){
     			 total=total+$scope.itemsList[i].product.price;
     		 }
-    		 return "$ "+total;
+    		 return total;
     	 }
+     }
+     var createObjOrder=function(){
+    	 var user= {
+    	        "id": 1,  
+    			"name": "Jose",
+    			"email": "pepe@hotmail.com",
+    			"address": "rivadavia 2331",
+    			"phone": "111111",
+    			"password": "1234",
+    			"type": "2"
+    	    };
+    	 $scope.order.user=user;
+    	 $scope.order.qr= null;
+    	 $scope.order.orderType="1";
+    	 $scope.order.date=1347918472690;
+    	 $scope.order.total=$scope.getCost();
+    	 $scope.getCost.orderState="P";
+    	 $scope.order.itemsList = $scope.itemsList;
      }
      $scope.init = function(){
     	 $scope.getFlavours();
          $scope.getProducts();
          var a=1;
      }
+     
             
      $scope.init();
             

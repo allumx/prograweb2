@@ -10,6 +10,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
@@ -17,6 +18,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity 
 @Table(name = "Orden")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Order {
 	
 	@Id
