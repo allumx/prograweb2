@@ -5,7 +5,7 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
 	$scope.itemsList=[];
 	$scope.selectedProduct='';
 	$scope.canshowFlavours = false;
-	$scope.canShowButtonOrder = false;
+	$scope.canShowPartialOrder = false;
 	$scope.selectedFlavours=[];
 
      $scope.getFlavours = function(){
@@ -29,7 +29,7 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
     	 setBtnUnselect();
     	 $scope.selectedProduct="";
     	 $scope.canshowFlavours = false;
-    	 $scope.canShowButtonOrder = true;	
+    	 $scope.canShowPartialOrder = true;	
     	 $scope.selectedFlavours =[];
      } 
      
@@ -39,9 +39,7 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
         		 if($scope.selectedFlavours.length<$scope.selectedProduct.quantity){
             		 $scope.selectedFlavours.push(flavour);
             		 flavour.selectFl=true;
-            		 
             	 }
-            		 
             	 else
             		 alert("No se admiten mas gustos");
         	 }
@@ -52,14 +50,11 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
     	 }
     	 else
     		 alert("Por favor seleccione un producto");
-    	 
   }
      $scope.completeOrder= function(){
-    	 //enviamos todo el objeto de orden validado  
     	 createObjOrder();
-    	
-    	 $http.post('http://localhost:8080/PW2SpringMVCBase/createOrder', $scope.order).then(function(response){  
-        debugger
+    	 $http.post('http://localhost:8080/PW2SpringMVCBase/createOrder', $scope.order).then(function(response){
+            alert("Su orden fue crada exitosamente!")
     	 });
     	 
      } 
@@ -69,19 +64,8 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
     	 $scope.canshowFlavours = true;
     	 setBtnUnselect();
      }
-     var setBtnUnselect=function(){
-    	 for(i in $scope.flavours){
-    		 $scope.flavours[i].selectFl=false;
-    	 }
-     }
-     var rmFlfromArray=function(fl){
-    	 for(i in $scope.selectedFlavours){
-    		 if($scope.selectedFlavours[i].id==fl.id){
-    			 $scope.selectedFlavours.splice(i,1);
-    			 break;
-    		 }	 
-    	 }
-     }
+
+
      $scope.getCost=function(){
     	 var total=0;
     	 if($scope.itemsList.length==0)
@@ -93,6 +77,22 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
     		 return total;
     	 }
      }
+
+     var setBtnUnselect=function(){
+         for(i in $scope.flavours){
+             $scope.flavours[i].selectFl=false;
+         }
+     }
+
+     var rmFlfromArray=function(fl){
+         for(i in $scope.selectedFlavours){
+             if($scope.selectedFlavours[i].id==fl.id){
+                 $scope.selectedFlavours.splice(i,1);
+                 break;
+             }   
+         }
+     }
+
      var createObjOrder=function(){
     	 var user= {
     	        "id": 1,  
@@ -111,13 +111,13 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
     	 $scope.getCost.orderState="P";
     	 $scope.order.itemsList = $scope.itemsList;
      }
+
      $scope.init = function(){
     	 $scope.getFlavours();
          $scope.getProducts();
          var a=1;
      }
-     
-            
+
      $scope.init();
             
 });

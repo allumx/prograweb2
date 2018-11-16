@@ -82,7 +82,7 @@
             <span>Usuarios</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="tables.html">
+          <a class="nav-link" href="http://localhost:8080/PW2SpringMVCBase/views/flavours.jsp">
             <i class="fas fa-fw fa-table"></i>
             <span>Gustos</span></a>
         </li>

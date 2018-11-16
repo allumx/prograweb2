@@ -51,7 +51,7 @@
          <!-- Sidebar -->
          <ul class="sidebar navbar-nav">
             <li class="nav-item ">
-               <a class="nav-link" href="index.html">
+               <a class="nav-link" href="http://localhost:8080/PW2SpringMVCBase/views/orders.jsp">
                <i class="fas fa-fw fa-tachometer-alt"></i>
                <span>Ordenes</span>
                </a>
