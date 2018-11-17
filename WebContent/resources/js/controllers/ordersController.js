@@ -1,9 +1,10 @@
 'use-strict';
 angular.module('orderApp',[]).controller('orderCtrl',function($scope, $http,$window){
 	 $scope.showInformation = false;
+		var port = window.location.port;
 	 
             $scope.getOrders = function(){
-      		  $http.get('http://localhost:8080/PW2SpringMVCBase/getOrders').then(function(response){
+      		  $http.get('http://localhost:'+port+'/PW2SpringMVCBase/getOrders').then(function(response){
       			  $scope.orders = response.data;
       			  $scope.totalOrders=response.data.length;
               });
@@ -11,7 +12,7 @@ angular.module('orderApp',[]).controller('orderCtrl',function($scope, $http,$win
             
             $scope.getOrder = function(id){
             	//items=[];
-            	$http.post('http://localhost:8080/PW2SpringMVCBase/getOrder', id).then(function(response){
+            	$http.post('http://localhost:'+port+'/PW2SpringMVCBase/getOrder', id).then(function(response){
             		$scope.selectedOrder=response.data;
             		$('#logoutModal').modal('show');
       			});
@@ -40,12 +41,12 @@ angular.module('orderApp',[]).controller('orderCtrl',function($scope, $http,$win
             }
             
             $scope.deleteOrder = function(id){
-      		  $http.delete('http://localhost:8080/PW2SpringMVCBase/deleteOrder/'+ id).then(function(response){
+      		  $http.delete('http://localhost:'+port+'/PW2SpringMVCBase/deleteOrder/'+ id).then(function(response){
               });    
             }
             
             $scope.changeOrderState = function(id){
-        		  $http.post('http://localhost:8080/PW2SpringMVCBase/changeOrderState/'+ id).then(function(response){
+        		  $http.post('http://localhost:'+port+'/PW2SpringMVCBase/changeOrderState/'+ id).then(function(response){
                 });    
               }
             $scope.init = function(){

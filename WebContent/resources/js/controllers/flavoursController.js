@@ -1,15 +1,16 @@
 'use-strict';
 angular.module('flavoursApp',[]).controller('flavoursCtrl',function($scope, $http,$window){
+	var port = window.location.port;
 	 
 	 
             $scope.getFlavours = function(){
-        		  $http.get('http://localhost:8080/PW2SpringMVCBase/getFlavours').then(function(response){
+        		  $http.get('http://localhost:'+port+'/PW2SpringMVCBase/getFlavours').then(function(response){
           			  $scope.flavours = response.data;
                   });
             }
             
             $scope.getFlavour = function(id){
-        		  $http.post('http://localhost:8080/PW2SpringMVCBase/getFlavour', id).then(function(response){
+        		  $http.post('http://localhost:'+port+'/PW2SpringMVCBase/getFlavour', id).then(function(response){
         			  $scope.flavour = response.data;
                 });
     			  $('#editModal').modal('show');
@@ -27,20 +28,20 @@ angular.module('flavoursApp',[]).controller('flavoursCtrl',function($scope, $htt
             	if(editedFlavour.costPrice === undefined){
             		editedFlavour.costPrice = $scope.flavour.costPrice ;
             	}
-        		  $http.post('http://localhost:8080/PW2SpringMVCBase/editFlavour', editedFlavour).then(function(response){
+        		  $http.post('http://localhost:'+port+'/PW2SpringMVCBase/editFlavour', editedFlavour).then(function(response){
         			  location.reload();
         			  });
               }
             
             $scope.addFlavour = function(newFlavour){
-        		  $http.post('http://localhost:8080/PW2SpringMVCBase/addFlavour', newFlavour).then(function(response){
+        		  $http.post('http://localhost:'+port+'/PW2SpringMVCBase/addFlavour', newFlavour).then(function(response){
         			  location.reload();
         			  });
               }
             
             
             $scope.deleteFlavour = function(id){
-        		  $http.delete('http://localhost:8080/PW2SpringMVCBase/deleteFlavour/'+ id).then(function(response){
+        		  $http.delete('http://localhost:'+port+'/PW2SpringMVCBase/deleteFlavour/'+ id).then(function(response){
         			  location.reload();
                   }); 
             }

@@ -1,5 +1,5 @@
 'use-strict';
-angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $http,$window){
+angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $http,$window, $location){
 	$scope.order={};
 	$scope.select=[];
 	$scope.itemsList=[];
@@ -7,21 +7,22 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
 	$scope.canshowFlavours = false;
 	$scope.canShowPartialOrder = false;
 	$scope.selectedFlavours=[];
+	var port = window.location.port;
 
      $scope.getFlavours = function(){
-		  $http.get('http://localhost:8080/PW2SpringMVCBase/getFlavours').then(function(response){
+		  $http.get('http://localhost:'+port+'/PW2SpringMVCBase/getFlavours').then(function(response){
  			  $scope.flavours = response.data;
  			  setBtnUnselect();
          });
    }
      
      $scope.getProducts = function(){
-		  $http.get('http://localhost:8080/PW2SpringMVCBase/getProducts').then(function(response){
+		  $http.get('http://localhost:'+port+'/PW2SpringMVCBase/getProducts').then(function(response){
 			  $scope.products = response.data;
         });
   }
      
-     $scope.addItem= function(){
+     $scope.addItem = function(){
     	 var item={};
     	 item.product=$scope.selectedProduct;
     	 item.flavourList=$scope.selectedFlavours;
@@ -53,20 +54,20 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
   }
      $scope.completeOrder= function(){
     	 createObjOrder();
-    	 $http.post('http://localhost:8080/PW2SpringMVCBase/createOrder', $scope.order).then(function(response){
+    	 $http.post('http://localhost:'+port+'PW2SpringMVCBase/createOrder', $scope.order).then(function(response){
             alert("Su orden fue crada exitosamente!")
     	 });
     	 
      } 
      
-     $scope.selectProduct=function(){
+     $scope.selectProduct = function(){
     	 $scope.selectedFlavours=[];
     	 $scope.canshowFlavours = true;
     	 setBtnUnselect();
      }
 
 
-     $scope.getCost=function(){
+     $scope.getCost = function(){
     	 var total=0;
     	 if($scope.itemsList.length==0)
     		 return 0.0;
@@ -78,13 +79,13 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
     	 }
      }
 
-     var setBtnUnselect=function(){
+     var setBtnUnselect = function(){
          for(i in $scope.flavours){
              $scope.flavours[i].selectFl=false;
          }
      }
 
-     var rmFlfromArray=function(fl){
+     var rmFlfromArray = function(fl){
          for(i in $scope.selectedFlavours){
              if($scope.selectedFlavours[i].id==fl.id){
                  $scope.selectedFlavours.splice(i,1);
@@ -93,7 +94,7 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
          }
      }
 
-     var createObjOrder=function(){
+     var createObjOrder = function(){
     	 var user= {
     	        "id": 1,  
     			"name": "Jose",
@@ -115,7 +116,6 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
      $scope.init = function(){
     	 $scope.getFlavours();
          $scope.getProducts();
-         var a=1;
      }
 
      $scope.init();
