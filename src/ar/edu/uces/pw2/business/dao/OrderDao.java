@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +37,17 @@ public class OrderDao {
 		this.userDao = userDao;
 	}
 
-	// TODO: ver el tema del pending por criterio
+	
 	@Transactional(readOnly = true)
 	public List<Order> getAllOrders() {
 		Session session = sessionFactory.getCurrentSession();
 		List<Order> orders = (List<Order>) session.createQuery("from Order").list();
-		return orders;
+		List<Order> ordersToreturn=new ArrayList<>();
+		for(Order order : orders) {
+			if(order.getOrderState().equals("P"))
+				ordersToreturn.add(order);
+		}
+		return ordersToreturn;
 	}
 	
 	@Transactional(readOnly = true)
@@ -69,24 +76,49 @@ public class OrderDao {
 		
 		return newOrder;
 	}
-
+	@Transactional(readOnly = false)
 	public void deleteOrder(int id) {
-		for (Order order : this.ordersList) {
+		/*for (Order order : this.ordersList) {
 			if (order.getId() == id) {
 				int index = ordersList.indexOf(order);
 				ordersList.remove(index);
 			}
+		}*/
+		Session session=sessionFactory.getCurrentSession();
+		Order anOrder;	
+		Item anItem;
+		List<Item> listaItem=new ArrayList<>();
+		
+		anOrder=(Order)session.get(Order.class, id);
+		
+		for (Item item : anOrder.getItemsList()) {
+			anItem=(Item)session.get(Item.class, item.getId());
+			anItem.getFlavourList().clear();
+			session.update(anItem);
+			//anOrder.getItemsList().remove(anItem);
 		}
+		anOrder.getItemsList().clear();
+		session.update(anOrder);
+		session.delete(anOrder);
+		//anOrder.getItemsList().remove(anItem);
+		//session.update(anOrder);
+		
+		
+		
+		
+		
+		
+		session.flush();
+		
 	}
 	
 	@Transactional(readOnly = false)
 	public void changeState(int id) {
 		Session session = sessionFactory.getCurrentSession();
-		for (Order order : this.ordersList) {
-			if (order.getId() == id) {
-				session.update(order);
-			}
-		}
+		Order order=(Order)session.get(Order.class, id);
+		order.setOrderState("C");
+		session.update(order);
+		
 	}
 
 

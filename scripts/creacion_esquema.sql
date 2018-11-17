@@ -21,7 +21,7 @@ INSERT INTO product (name, quantity,price)
 VALUES ('cuarto',2,20.4);
 
 INSERT INTO product (name, quantity,price) 
-VALUES ('medio',3,50,5);
+VALUES ('medio',3,50.5);
 
 INSERT INTO product (name, quantity,price) 
 VALUES ('kilo',4,100.5);

@@ -39,13 +39,17 @@ angular.module('orderApp',[]).controller('orderCtrl',function($scope, $http,$win
             	alert("ok");
             }
             
-            $scope.deleteOrder = function(id){
-      		  $http.delete('http://localhost:8080/PW2SpringMVCBase/deleteOrder/'+ id).then(function(response){
+            $scope.deleteOrder = function(id){//id menos uno dado que tiene que pasarse como indice del array
+      		  var orden=$scope.orders[id-1];
+              $http.delete('http://localhost:8080/PW2SpringMVCBase/deleteOrder/'+id ).then(function(response){
+            	  $scope.init();
               });    
             }
             
             $scope.changeOrderState = function(id){
-        		  $http.post('http://localhost:8080/PW2SpringMVCBase/changeOrderState/'+ id).then(function(response){
+            	
+        		$http.post('http://localhost:8080/PW2SpringMVCBase/changeOrderState/'+ id).then(function(response){
+        			$scope.init();
                 });    
               }
             $scope.init = function(){

@@ -59,7 +59,7 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
     	 createObjOrder();
     	
     	 $http.post('http://localhost:8080/PW2SpringMVCBase/createOrder', $scope.order).then(function(response){  
-        debugger
+        
     	 });
     	 
      } 
@@ -108,7 +108,7 @@ angular.module('userOrderApp',[]).controller('userOrderCtrl',function($scope, $h
     	 $scope.order.orderType="1";
     	 $scope.order.date=1347918472690;
     	 $scope.order.total=$scope.getCost();
-    	 $scope.getCost.orderState="P";
+    	 $scope.order.orderState="P";
     	 $scope.order.itemsList = $scope.itemsList;
      }
      $scope.init = function(){

@@ -99,6 +99,9 @@ public class Order {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	public void setOrderState(String state) {
+		this.orderState  = state;
+	}
 	public String getOrderState() {
 		return orderState;
 	}
