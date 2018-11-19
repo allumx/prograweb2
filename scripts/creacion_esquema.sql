@@ -11,20 +11,20 @@ CREATE TABLE `functionality` (
 INSERT INTO User(address,email, name, password,phone,type) 
 VALUES ('asdfasdf','asdf@sdf', 'asdfadsf','asdfasdf',55555,'aaaaa');
   
-INSERT INTO product (name, quantity,price) 
-VALUES ('vasito',2,10.2);
+INSERT INTO product (name, quantity,price,imagePath) 
+VALUES ('vasito',2,10,'../resources/images/vasito.jpg');
 
-INSERT INTO product (name, quantity,price) 
-VALUES ('cucurucho',2,15.1);
+INSERT INTO product (name, quantity,price,imagePath) 
+VALUES ('cucurucho',2,15, '../resources/images/cucurucho.jpg');
 
-INSERT INTO product (name, quantity,price)  
-VALUES ('cuarto',2,20.4);
+INSERT INTO product (name, quantity,price,imagePath)  
+VALUES ('cuarto',2,20, '../resources/images/cuarto.jpg');
 
-INSERT INTO product (name, quantity,price) 
-VALUES ('medio',3,50.5);
+INSERT INTO product (name, quantity,price,imagePath) 
+VALUES ('medio',3,50,'../resources/images/medio.jpg');
 
-INSERT INTO product (name, quantity,price) 
-VALUES ('kilo',4,100.5);
+INSERT INTO product (name, quantity,price,imagePath) 
+VALUES ('kilo',4,100, '../resources/images/kilo.jpg');
 
 insert into Flavour (costPrice, name, salePrice) 
 values (12,'vainilla',20);

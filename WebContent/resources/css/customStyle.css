@@ -1,0 +1,22 @@
+.customCard {
+	margin-bottom: 15px;
+	border: solid 1px;
+}
+
+.customCardImage {
+	border-bottom: solid 1px;
+}
+
+.customCardBody {
+	border-bottom: solid 1px;
+	text-align: center;
+	padding-bottom: 0px;
+}
+.scrollDiv{
+	width: 100%;
+    height: 500px;
+    overflow-y: scroll;
+    margin-bottom: 25px;
+    
+}
+    
