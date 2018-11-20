@@ -1,5 +1,6 @@
 package ar.edu.uces.pw2.rest.controller;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +72,12 @@ public class OrderController {
 		System.out.println("OrderController:changeOrderState");
 		orderDao.changeState(id);		 
 	}
-	
+	@RequestMapping(value="/filterProfitByDate", method=RequestMethod.POST)
+	@ResponseBody
+	public List<Order> filterProfitByDate(@RequestBody FilterDate filterDate) {
+		List<Order> orderList= orderDao.filterProfitByDate(filterDate);
+		return orderList;
+	}
 	@Autowired
 	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;

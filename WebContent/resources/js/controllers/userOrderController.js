@@ -102,7 +102,7 @@ angular.module('userOrderApp', []).controller('userOrderCtrl', function($scope, 
         $scope.order.user = user;
         $scope.order.qr = null;
         $scope.order.orderType = "1";
-        $scope.order.date = 1347918472690;
+        $scope.order.date = Date.now();
         $scope.order.total = $scope.getCost();
         $scope.order.orderState = "P";
         $scope.order.itemsList = $scope.itemsList;

@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import ar.edu.uces.pw2.business.dao.FlavourDao;
-import ar.edu.uces.pw2.business.dao.FunctionalityDao;
 import ar.edu.uces.pw2.business.dao.ProductDao;
 import ar.edu.uces.pw2.business.domain.Flavour;
-import ar.edu.uces.pw2.business.domain.Functionality;
 import ar.edu.uces.pw2.business.domain.Product;
 
 @Controller

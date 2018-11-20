@@ -4,10 +4,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,12 +81,7 @@ public class OrderDao {
 	}
 	@Transactional(readOnly = false)
 	public void deleteOrder(int id) {
-		/*for (Order order : this.ordersList) {
-			if (order.getId() == id) {
-				int index = ordersList.indexOf(order);
-				ordersList.remove(index);
-			}
-		}*/
+		
 		Session session=sessionFactory.getCurrentSession();
 		Order anOrder;	
 		Item anItem;
@@ -95,19 +93,11 @@ public class OrderDao {
 			anItem=(Item)session.get(Item.class, item.getId());
 			anItem.getFlavourList().clear();
 			session.update(anItem);
-			//anOrder.getItemsList().remove(anItem);
 		}
 		anOrder.getItemsList().clear();
 		session.update(anOrder);
 		session.delete(anOrder);
-		//anOrder.getItemsList().remove(anItem);
-		//session.update(anOrder);
-		
-		
-		
-		
-		
-		
+	
 		session.flush();
 		
 	}
@@ -118,7 +108,16 @@ public class OrderDao {
 		Order order=(Order)session.get(Order.class, id);
 		order.setOrderState("C");
 		session.update(order);
-		
+	}
+	@Transactional(readOnly = false)
+	public List<Order> filterProfitByDate(FilterDate filterDate) {
+		Session session = sessionFactory.getCurrentSession();	
+		Criteria crit = session.createCriteria(Order.class)
+				.add(Restrictions.ge("date", filterDate.getFrom() ))
+				.add(Restrictions.lt("date",filterDate.getTo()))
+				.add(Restrictions.eq("orderState","C"));
+		List<Order> orderList = crit.list();
+		return orderList;
 	}
 
 
