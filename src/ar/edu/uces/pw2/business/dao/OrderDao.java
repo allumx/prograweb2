@@ -74,7 +74,7 @@ public class OrderDao {
 			item.setProduct(productDao.getProductById(item.getProduct().getId()));
 		}
 		
-		//newOrder.setUser(userDao.getUserByID(newOrder.getUser().getId()));
+		newOrder.setUser(userDao.findByID(newOrder.getUser().getId()));
 		session.merge(newOrder);
 		
 		return newOrder;

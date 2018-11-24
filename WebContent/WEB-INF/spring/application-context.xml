@@ -32,14 +32,19 @@
      </bean>
 
 	<security:http use-expressions="true">
-	    <security:intercept-url pattern="/*" access="permitAll" />
-	    <security:intercept-url pattern="/console/**" access="permitAll" />
-	    <security:intercept-url pattern="/user/**" access="isAuthenticated()" />
-	    <security:intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" />
-	    <security:intercept-url pattern="/**" access="denyAll" />
-	    <security:form-login login-page="/login" default-target-url="/welcome" always-use-default-target="true" 
-	     authentication-failure-url="/login?error" username-parameter="username" password-parameter="password"/>
-	    <security:logout logout-success-url="/welcome" />
+		<security:intercept-url pattern="/*" access="permitAll" />
+		<security:intercept-url pattern="/console/**"
+			access="permitAll" />
+		<security:intercept-url pattern="/user/**"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/admin/**"
+			access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/**" access="permitAll" />
+		<security:form-login login-page="/views/login.jsp"
+			default-target-url="/welcome" always-use-default-target="true"
+			authentication-failure-url="/login?error" username-parameter="username"
+			password-parameter="password" />
+		<security:logout logout-success-url="/welcome" />
 	</security:http>
     
     <security:authentication-manager>

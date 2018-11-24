@@ -65,8 +65,6 @@ public class SecurityService {
 
 	public User saveUser(User userToSave){
 
-		userToSave.setEnabled(true);
-
 		List<Authority> authorities = new ArrayList<Authority>();
 		authorities.add(findAuthoritiesByName("ROLE_USER"));
 

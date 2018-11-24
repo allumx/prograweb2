@@ -38,10 +38,14 @@
       <div class="card card-login mx-auto mt-5">
         <div class="card-header">Login</div>
         <div class="card-body">
-          <form name="loginForm">
+          <form name="loginForm" 
+          		action="<c:url value='j_spring_security_check'/>" 
+          		method='POST'
+          >
             <div class="form-group">
               <div class="form-label-group">
-                <input type="email"
+                <input name="username"
+                 type="email"
                  id="inputEmail"
                  class="form-control"
                  placeholder="Email address"
@@ -54,7 +58,8 @@
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input type="password"
+                <input name="password" 
+                	type="password"
                  id="inputPassword"
                   class="form-control"
                    placeholder="Password" 
@@ -63,9 +68,12 @@
                 <label for="inputPassword">Password</label>
               </div>
             </div>
-            <button class="btn btn-primary btn-block"
+            <button
+             type="submit"
+						value="submit" 
+            class="btn btn-primary btn-block"
             ng-disabled="loginForm.$invalid"
-             data-ng-click="login(user)"
+             
              >Login</button>
           </form>
           <div class="text-center">
