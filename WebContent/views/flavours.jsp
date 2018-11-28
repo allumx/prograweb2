@@ -13,13 +13,13 @@
       <meta name="author" content="">
       <title>Gustos</title>
       <!-- Bootstrap core CSS-->
-      <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+      <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
       <!-- Custom fonts for this template-->
-      <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+      <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
       <!-- Page level plugin CSS-->
-      <link href="../resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+      <link href="${pageContext.request.contextPath}/resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
       <!-- Custom styles for this template-->
-      <link href="../resources/css/sb-admin.css" rel="stylesheet">
+      <link href="${pageContext.request.contextPath}/resources/css/sb-admin.css" rel="stylesheet">
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
    </head>
    <body id="page-top" data-ng-app="flavoursApp" data-ng-controller="flavoursCtrl">
@@ -209,19 +209,19 @@
       
       
       <!-- Bootstrap core JavaScript-->
-      <script src="../resources/vendor/jquery/jquery.min.js"></script>
-      <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <!-- Core plugin JavaScript-->
-      <script src="../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
       <!-- Page level plugin JavaScript-->
-      <script src="../resources/vendor/chart.js/Chart.min.js"></script>
-      <script src="../resources/vendor/datatables/jquery.dataTables.js"></script>
-      <script src="../resources/vendor/datatables/dataTables.bootstrap4.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/vendor/datatables/jquery.dataTables.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/vendor/datatables/dataTables.bootstrap4.js"></script>
       <!-- Custom scripts for all pages-->
-      <script src="../resources/js/sb-admin.min.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/js/sb-admin.min.js"></script>
       <!-- Demo scripts for this page-->
-      <script src="../resources/js/demo/datatables-demo.js"></script>
-      <script src="../resources/js/demo/chart-area-demo.js"></script>
-      <script src="../resources/js/controllers/flavoursController.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/js/demo/datatables-demo.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
+      <script src="${pageContext.request.contextPath}/resources/js/controllers/flavoursController.js"></script>
    </body>
 </html>
