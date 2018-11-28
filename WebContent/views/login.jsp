@@ -22,13 +22,13 @@
     <title> Login</title>
 
     <!-- Bootstrap core CSS-->
-    <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
-    <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="../resources/css/sb-admin.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/sb-admin.css" rel="stylesheet">
 
   </head>
 
@@ -39,13 +39,13 @@
         <div class="card-header">Login</div>
         <div class="card-body">
           <form name="loginForm" 
-          		action="<c:url value='j_spring_security_check'/>" 
+          		action="<c:url value='/j_spring_security_check'/>" 
           		method='POST'
           >
             <div class="form-group">
               <div class="form-label-group">
                 <input name="username"
-                 type="email"
+                 type="text"
                  id="inputEmail"
                  class="form-control"
                  placeholder="Email address"
@@ -70,10 +70,9 @@
             </div>
             <button
              type="submit"
-						value="submit" 
+			value="submit" 
             class="btn btn-primary btn-block"
             ng-disabled="loginForm.$invalid"
-             
              >Login</button>
           </form>
           <div class="text-center">
@@ -85,13 +84,13 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="../resources/vendor/jquery/jquery.min.js"></script>
-    <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../resources/js/controllers/loginController.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/controllers/loginController.js"></script>
     
 
     <!-- Core plugin JavaScript-->
-    <script src="../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
   </body>
 </html>

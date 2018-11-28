@@ -39,6 +39,21 @@ public class User implements Serializable {
 	
 	@Column(name="phone")
 	private String phone;
+	
+	@Column(name="enabled")
+	private boolean enabled;
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setAuthorities(List<Authority> authorities) {
+		this.authorities = authorities;
+	}
 
 	@ManyToMany
 	@LazyCollection(LazyCollectionOption.FALSE)

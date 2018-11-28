@@ -19,16 +19,15 @@
     <title>Register</title>
 
     <!-- Bootstrap core CSS-->
-    <link href="../resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Custom fonts for this template-->
-    <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template-->
-    <link href="../resources/css/sb-admin.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/css/sb-admin.css" rel="stylesheet">
     
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
-    
 
   </head>
 
@@ -38,31 +37,32 @@
       <div class="card card-register mx-auto mt-5">
         <div class="card-header">Register an Account</div>
         <div class="card-body">
-          <form name="registerForm">
+        <form:form method="POST" action="registerUser" modelAttribute="user" name="registerForm">
             <div class="form-group">
               <div class="form-row">
                 <div class="col-md-6">
                   <div class="form-label-group">
-                    <input type="text"
+                    <form:input path="userName" 
+                    type="text"
                      id="firstName"
                       class="form-control"
                        placeholder="Nombre"
                         required="required"
                          autofocus="autofocus"
                          ng-model="user.name"
-                         >
+                         />
                     <label for="firstName">Nombre</label>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-label-group">
-                    <input type="text" 
+                    <form:input path="address" type="text" 
                     id="address"
                      class="form-control"
                       placeholder="Direccion"
                        required="required"
                        ng-model="user.address"
-                       >
+                       />
                     <label for="address">Direccion</label>
                   </div>
                 </div>
@@ -70,13 +70,14 @@
             </div>
             <div class="form-group">
               <div class="form-label-group">
-                <input type="email"
+                <form:input path="email"
+                 type="email"
                  id="inputEmail"
                   class="form-control"
                    placeholder="Direccion e-mail"
                     required="required"
                     ng-model="user.email"
-                    >
+                    />
                 <label for="inputEmail">Direccion e-mail</label>
               </div>
             </div>
@@ -84,24 +85,26 @@
               <div class="form-row">
                 <div class="col-md-6">
                   <div class="form-label-group">
-                    <input type="text"
-                     id="inputText"
+                    <form:input path="phone"
+                     type="number"
+                     id="inputPhone"
                       class="form-control" 
                       placeholder="Telefono"
                        required="required"
                        ng-model="user.phone"
-                       >
-                    <label for="inputPassword">Telefono</label>
+                       />
+                    <label for="inputPhone">Telefono</label>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-label-group">
-                    <input type="password" 
+                    <form:input path="password"
+                    type="password" 
                     id="confirmPassword" 
                     class="form-control"
                      placeholder="Contraseña" 
                      required="required"
-                     ng-model="user.password">
+                     ng-model="user.password"/>
                     <label for="confirmPassword">Contraseña</label>
                   </div>
                 </div>
@@ -109,10 +112,9 @@
             </div>
             <button  class="btn btn-primary btn-block"
              ng-disabled="registerForm.$invalid"
-              data-ng-click="register(user)"
               >
               Register</button>
-          </form>
+          </form:form>
           <div class="text-center">
             <a class="d-block small mt-3" href="login.jsp">Login Page</a>
           </div>
@@ -121,12 +123,12 @@
     </div>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="../resources/vendor/jquery/jquery.min.js"></script>
-    <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="../resources/js/controllers/registerController.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/controllers/registerController.js"></script>
 
   </body>
 
