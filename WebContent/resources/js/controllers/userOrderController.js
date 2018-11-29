@@ -10,14 +10,14 @@ angular.module('userOrderApp', []).controller('userOrderCtrl', function($scope, 
     var port = window.location.port;
 
     $scope.getFlavours = function() {
-        $http.get('http://localhost:8080/PW2SpringMVCBase/getFlavours').then(function(response) {
+        $http.get('http://localhost:'+port+'/PW2SpringMVCBase/getFlavours').then(function(response) {
             $scope.flavours = response.data;
             setBtnUnselect();
         });
     }
 
     $scope.getProducts = function() {
-        $http.get('http://localhost:8080/PW2SpringMVCBase/getProducts').then(function(response) {
+        $http.get('http://localhost:'+port+'/PW2SpringMVCBase/getProducts').then(function(response) {
             $scope.products = response.data;
         });
     }
@@ -51,7 +51,7 @@ angular.module('userOrderApp', []).controller('userOrderCtrl', function($scope, 
     }
     $scope.completeOrder = function() {
     	createObjOrder();
-        $http.post('http://localhost:8080/PW2SpringMVCBase/createOrder', $scope.order).then(function(response) {
+        $http.post('http://localhost:'+port+'/PW2SpringMVCBase/createOrder', $scope.order).then(function(response) {
             alert("Su orden fue crada exitosamente!")
         });
     }
@@ -102,9 +102,9 @@ angular.module('userOrderApp', []).controller('userOrderCtrl', function($scope, 
         $scope.order.user = user;
         $scope.order.qr = null;
         $scope.order.orderType = "1";
-        $scope.order.date = Date.now();
+        $scope.order.date = new Date().setHours(0,0,0,0);
         $scope.order.total = $scope.getCost();
-        $scope.order.orderState = "P";
+        $scope.order.orderState = "Pendiente";
         $scope.order.itemsList = $scope.itemsList;
     }
     $scope.deleteItem=function(index){

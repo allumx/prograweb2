@@ -109,7 +109,7 @@
          						 <span class="badge badge-pill badge-danger">X</span>
         						</a>
       						</p>
-							<img class="card-img-top customCardImage" src={{item.product.imagePath}}>
+							<img class="card-img-top customCardImage" src={{item.product.imagePath}} ng-clock>
 							<div class="card-body customCardBody">
 								<h5 class="card-title">{{item.product.name}}</h5>
 							</div>

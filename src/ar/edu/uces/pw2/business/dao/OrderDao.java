@@ -47,7 +47,7 @@ public class OrderDao {
 		List<Order> orders = (List<Order>) session.createQuery("from Order").list();
 		List<Order> ordersToreturn=new ArrayList<>();
 		for(Order order : orders) {
-			if(order.getOrderState().equals("P"))
+			if(order.getOrderState().equals("Pendiente"))
 				ordersToreturn.add(order);
 		}
 		return ordersToreturn;
@@ -106,16 +106,17 @@ public class OrderDao {
 	public void changeState(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		Order order=(Order)session.get(Order.class, id);
-		order.setOrderState("C");
+		order.setOrderState("Completa");
 		session.update(order);
 	}
+	
 	@Transactional(readOnly = false)
 	public List<Order> filterProfitByDate(FilterDate filterDate) {
 		Session session = sessionFactory.getCurrentSession();	
 		Criteria crit = session.createCriteria(Order.class)
-				.add(Restrictions.ge("date", filterDate.getFrom() ))
-				.add(Restrictions.lt("date",filterDate.getTo()))
-				.add(Restrictions.eq("orderState","C"));
+				.add(Restrictions.ge("date", filterDate.getFrom()))
+				.add(Restrictions.le("date",filterDate.getTo()))
+				.add(Restrictions.eq("orderState","Completa"));
 		List<Order> orderList = crit.list();
 		return orderList;
 	}
