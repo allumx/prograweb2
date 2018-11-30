@@ -15,9 +15,7 @@ public class ItemDao {
 
 	private FlavourDao flavourDao;
 	private ProductDao productDao;
-
 	private Item item;
-	//private Product prod = new Product (0,"vasito",2);
 	
 	
 	@Autowired

@@ -97,7 +97,7 @@
 
 			<!-- Icon Cards-->
 			<div class="row">
-				<div class="col-xl-3 col-sm-6 mb-3">
+				<div class="col-xl-6 col-sm-6 mb-3" style="padding-left: 20px">
 					<div class="card text-white bg-success o-hidden h-100">
 						<div class="card-body">
 							<div class="card-body-icon">
@@ -111,27 +111,26 @@
 						</a>
 					</div>
 				</div>
-				<div class="col-xl-3 col-sm-6 mb-3">
+				<div class="col-xl-6 col-sm-6 mb-3" style="padding-right: 20px">
 					<div class="card text-white bg-warning o-hidden h-100">
 						<div class="card-body">
-						<div ng-if="totalProfit >0">TOTAL RECAUDADO:</div>	
+							<div ng-if="totalProfit > 0">TOTAL RECAUDADO:</div>
 							<div class="card-body-icon">
-							
+
 								<i class="fas fa-fw fa-list"></i>
 							</div>
 							<div class="mr-5">{{ totalProfit | currency }}</div>
 						</div>
 						<a class="card-footer text-white clearfix small z-1" href="#">
-							<span class="float-left">
-							<input type="date" ng-model="from" />	
-								 <input type="date" ng-model="to" />
-						</span>
-						 <span class="float-right">
-								<button type="button" 
-								class="btn-secondary"
+							<span class="float-left"> <input type="date"
+								ng-model="from" /> <input type="date" ng-model="to" />
+						</span> <span class="float-right">
+								<button type="button" class="btn-secondary"
+									âŸ²
 								ng-click="filterByDate(from, to)">Filtrar</button>
+								<button type="button" class="btn-secondary"
+									ng-click="reloadPage()">&#9850;</button>
 						</span>
-
 						</a>
 					</div>
 				</div>
@@ -173,9 +172,11 @@
 									<td>
 										<button data-ng-click="getOrder(order.id)" type="button"
 											class="btn btn-info">Info</button>
-										<button data-ng-click="changeOrderState(order.id)"
-											type="button" class="btn btn-success">Completar</button>
-										<button data-ng-click="deleteOrder(order.id)"
+										<button ng-if="showCompleteButton"
+											data-ng-click="changeOrderState(order.id)" type="button"
+											class="btn btn-success">Completar</button>
+										<button ng-if="showCompleteButton"
+										data-ng-click="deleteOrder(order.id)"
 											class="btn btn-danger">Eliminar</button>
 									</td>
 								</tr>
@@ -192,7 +193,7 @@
 		<footer class="sticky-footer">
 			<div class="container my-auto">
 				<div class="copyright text-center my-auto">
-					<span>Copyright © Your Website 2018</span>
+					<span>Copyright Â© Your Website 2018</span>
 				</div>
 			</div>
 		</footer>
@@ -218,7 +219,7 @@
 						la orden</h5>
 					<button class="close" type="button" data-dismiss="modal"
 						aria-label="Close">
-						<span aria-hidden="true">×</span>
+						<span aria-hidden="true">Ã—</span>
 					</button>
 				</div>
 				<div class="modal-body">

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import ar.edu.uces.pw2.business.dao.FlavourDao;
 import ar.edu.uces.pw2.business.domain.Flavour;
-import ar.edu.uces.pw2.business.domain.Order;
 
 @Controller
 public class FlavourController {

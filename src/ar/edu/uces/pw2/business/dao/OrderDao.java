@@ -1,15 +1,10 @@
 package ar.edu.uces.pw2.business.dao;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -26,7 +21,6 @@ public class OrderDao {
 	private ProductDao productDao;
 	private UserDao userDao;
 	
-	private List<Order> ordersList = new ArrayList<Order>();
 
 	public OrderDao() {
 		super();
@@ -85,7 +79,6 @@ public class OrderDao {
 		Session session=sessionFactory.getCurrentSession();
 		Order anOrder;	
 		Item anItem;
-		List<Item> listaItem=new ArrayList<>();
 		
 		anOrder=(Order)session.get(Order.class, id);
 		

@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ar.edu.uces.pw2.business.domain.Flavour;
-import ar.edu.uces.pw2.business.domain.Product;
 import ar.edu.uces.pw2.business.domain.User;
 
 @Repository

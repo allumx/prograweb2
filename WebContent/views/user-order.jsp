@@ -75,7 +75,7 @@
 				<h1> Ordenar </h1>
 					<form>
 						<div class="form-group">
-							<label for="formGroupExampleInput">Helados </label> <select
+							<label for="formGroupExampleInput">Heladosss</label> <select
 								id="combo"
 								ng-options="product as product.name for product in products"
 								ng-model="selectedProduct" ng-change="selectProduct()"></select>
