@@ -1,8 +1,11 @@
 package ar.edu.uces.pw2.rest.controller;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +32,7 @@ public class OrderController {
 	
 	@RequestMapping(value="/createOrder", method=RequestMethod.POST)
 	@ResponseBody
-	public Order createOrder(@RequestBody Order newOrder) {
+	public Order createOrder(@RequestBody Order newOrder) throws JsonGenerationException, JsonMappingException, IOException {
 
 		Order order = orderDao.createOrder(newOrder);		
 	    return order;
