@@ -1,14 +1,26 @@
 package ar.edu.uces.pw2.business.dao;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.ObjectWriter;
 import org.hibernate.Criteria;
+import org.hibernate.Hibernate;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.zxing.WriterException;
 
 import ar.edu.uces.pw2.business.domain.*;
 
@@ -56,7 +68,10 @@ public class OrderDao {
 
 	
 	@Transactional(readOnly = false)
-	public Order createOrder(Order newOrder) {
+	public Order createOrder(Order newOrder) throws JsonGenerationException, JsonMappingException, IOException {
+		String jsonOrder;
+		QRCodeGenerator newQr=new QRCodeGenerator();
+		
 		Session session = sessionFactory.getCurrentSession();	
 		for (Item item : newOrder.getItemsList()) {
 			List<Flavour> persistentFlavours = new ArrayList<Flavour>();
@@ -70,6 +85,20 @@ public class OrderDao {
 		
 		newOrder.setUser(userDao.getUserByID(newOrder.getUser().getId()));
 		session.merge(newOrder);
+		System.out.println(System.getProperty("user.dir"));
+		////////Max Qr Test/////
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		jsonOrder = ow.writeValueAsString(newOrder);
+		try {
+			newQr.generateQRCodeImage(jsonOrder, 350, 350, 
+					System.getProperty("user.dir")+"/prograweb2/order.qr");
+			System.out.println();
+        } catch (WriterException e) {
+            System.out.println("Could not generate QR Code, WriterException :: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Could not generate QR Code, IOException :: " + e.getMessage());
+        }
+		/////////////////
 		
 		return newOrder;
 	}
@@ -99,17 +128,16 @@ public class OrderDao {
 	public void changeState(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		Order order=(Order)session.get(Order.class, id);
-		order.setOrderState("Completa");
+		order.setOrderState("C");
 		session.update(order);
 	}
-	
 	@Transactional(readOnly = false)
 	public List<Order> filterProfitByDate(FilterDate filterDate) {
 		Session session = sessionFactory.getCurrentSession();	
 		Criteria crit = session.createCriteria(Order.class)
-				.add(Restrictions.ge("date", filterDate.getFrom()))
-				.add(Restrictions.le("date",filterDate.getTo()))
-				.add(Restrictions.eq("orderState","Completa"));
+				.add(Restrictions.ge("date", filterDate.getFrom() ))
+				.add(Restrictions.lt("date",filterDate.getTo()))
+				.add(Restrictions.eq("orderState","C"));
 		List<Order> orderList = crit.list();
 		return orderList;
 	}
