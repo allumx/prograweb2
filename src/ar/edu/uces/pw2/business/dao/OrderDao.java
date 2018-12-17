@@ -71,6 +71,7 @@ public class OrderDao {
 	public Order createOrder(Order newOrder) throws JsonGenerationException, JsonMappingException, IOException {
 		String jsonOrder;
 		QRCodeGenerator newQr=new QRCodeGenerator();
+		SendMail mail = new SendMail();
 		
 		Session session = sessionFactory.getCurrentSession();	
 		for (Item item : newOrder.getItemsList()) {
@@ -93,6 +94,8 @@ public class OrderDao {
 			newQr.generateQRCodeImage(jsonOrder, 350, 350, 
 					System.getProperty("user.dir")+"/prograweb2/order.qr");
 			System.out.println();
+			mail.sendEmail("web2alumax@gmail.com", "web2alumax@gmail.com", "QR para pedido", "Por favor acerquese al local para recoger su pedido");
+			System.out.println("Mail mandado");
         } catch (WriterException e) {
             System.out.println("Could not generate QR Code, WriterException :: " + e.getMessage());
         } catch (IOException e) {

@@ -8,6 +8,7 @@ import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,8 @@ import ar.edu.uces.pw2.business.domain.*;
 @Controller
 public class OrderController {
 	
+	//SendEmailService emailUtilService;
+	
 	private OrderDao orderDao;
 	@RequestMapping(value="/getOrders", method=RequestMethod.GET)
 	@ResponseBody
@@ -32,9 +35,11 @@ public class OrderController {
 	
 	@RequestMapping(value="/createOrder", method=RequestMethod.POST)
 	@ResponseBody
-	public Order createOrder(@RequestBody Order newOrder) throws JsonGenerationException, JsonMappingException, IOException {
+	public Order createOrder(@RequestBody Order newOrder, Model model) throws JsonGenerationException, JsonMappingException, IOException {
 
-		Order order = orderDao.createOrder(newOrder);		
+		Order order = orderDao.createOrder(newOrder);	
+		
+		//emailUtilService.sendEmail();
 	    return order;
 	}
 	
