@@ -12,6 +12,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -63,6 +64,9 @@ public class OrderDao {
 	
 	@Transactional(readOnly = false)
 	public Order createOrder(Order newOrder) {
+		org.springframework.security.core.userdetails.User logedUser= (org.springframework.security.core.userdetails.User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		User user =userDao.findByName(logedUser.getUsername());
+		newOrder.setUser(user);
 		Session session = sessionFactory.getCurrentSession();	
 		for (Item item : newOrder.getItemsList()) {
 			List<Flavour> persistentFlavours = new ArrayList<Flavour>();

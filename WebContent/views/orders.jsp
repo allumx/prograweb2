@@ -138,7 +138,7 @@
                   <tbody data-ng-repeat="order in orders">
                     <tr>
                       <td>{{order.id}}</td>
-                      <td>{{order.user.name}}</td>
+                      <td>{{order.user.userName}}</td>
                       <td>{{order.orderState}}</td>
                       <td>{{order.total}}</td>
                       <td>
