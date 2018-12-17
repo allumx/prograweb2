@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<!-- configuration file -->
+	<bean id="applicationProperties"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:resources/application.properties" />
+	</bean>
+
+	<context:component-scan base-package="ar.edu.uces.pw2.business.service" />
+	<context:component-scan base-package="ar.edu.uces.pw2.controller" />
+	<context:component-scan base-package="ar.edu.uces.pw2.rest.controller" />
+	<context:component-scan base-package="ar.edu.uces.pw2.business.dao" />
+	<context:component-scan base-package="ar.edu.uces.pw2.business.security" />
+
+	<mvc:annotation-driven />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/views/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<security:http use-expressions="true">
+		<security:intercept-url pattern="/*" access="permitAll" />
+
+		<security:intercept-url pattern="/console/**"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/resources/**"
+			access="permitAll" />
+
+		<security:intercept-url pattern="/user/**"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/views/user-order.jsp"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/views/orders.jsp"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/views/flavours.jsp"
+			access="isAuthenticated()" />
+
+		<security:intercept-url pattern="/admin/**"
+			access="isAuthenticated()" />
+		<security:intercept-url pattern="/**" access="permitAll" />
+
+		<security:form-login login-page="/login"
+			default-target-url="/redirectByRole" always-use-default-target="true"
+			authentication-failure-url="/login?error" username-parameter="username"
+			password-parameter="password" />
+
+		<security:logout logout-success-url="/welcome" />
+	</security:http>
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:jdbc-user-service
+				data-source-ref="myDataSource"
+				users-by-username-query="SELECT username, password, enabled FROM USERS WHERE username = ?"
+				authorities-by-username-query="SELECT u.username, a.authority
+ 											FROM USERS u 
+ 											 INNER JOIN USERS_AUTHORITIES ua ON u.id = ua.users_id 
+ 											 INNER JOIN AUTHORITIES a ON ua.authorities_id = a.id 
+ 											WHERE u.username = ?" />
+			<security:password-encoder hash="md5" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+
+	<import resource="/json-mapper-context.xml" />
+	<import resource="/hibernate-context.xml" />
+
+</beans>

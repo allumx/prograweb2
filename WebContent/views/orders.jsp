@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -9,34 +8,29 @@
 
 <html lang="en">
 
-<head>
+  <head>
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-<title>Ordenes</title>
+    <title>Ordenes</title>
 
-<!-- Bootstrap core CSS-->
-<link href="../resources/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+    <!-- Bootstrap core CSS-->
+    <link href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom fonts for this template-->
-<link href="../resources/vendor/fontawesome-free/css/all.min.css"
-	rel="stylesheet" type="text/css">
+    <!-- Custom fonts for this template-->
+    <link href="${pageContext.request.contextPath}/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
 
-<!-- Page level plugin CSS-->
-<link href="../resources/vendor/datatables/dataTables.bootstrap4.css"
-	rel="stylesheet">
+    <!-- Page level plugin CSS-->
+    <link href="${pageContext.request.contextPath}/resources/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
 
-<!-- Custom styles for this template-->
-<link href="../resources/css/sb-admin.css" rel="stylesheet">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
-
+    <!-- Custom styles for this template-->
+    <link href="${pageContext.request.contextPath}/resources/css/sb-admin.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.3/angular.js"></script>
+    
 
 </head>
 
@@ -136,102 +130,93 @@
 				</div>
 			</div>
 
-			<!-- DataTables Example -->
-			<div class="card mb-3">
-				<div class="card-header">
-					<i class="fas fa-table"></i> Ordenes
-				</div>
-				<div class="card-body">
-					<div class="table-responsive">
-						<table class="table table-bordered" id="dataTable" width="100%"
-							cellspacing="0">
-							<thead>
-								<tr>
-									<th>Nro order(id)</th>
-									<th>Usuario</th>
-									<th>Estado</th>
-									<th>total</th>
-									<th>Acciones</th>
-								</tr>
-							</thead>
-							<tfoot>
-								<tr>
-									<th>Nro order(id)</th>
-									<th>Usuario</th>
-									<th>Estado</th>
-									<th>total</th>
-									<th>Acciones</th>
-								</tr>
-							</tfoot>
-							<tbody data-ng-repeat="order in orders">
-								<tr>
-									<td>{{order.id}}</td>
-									<td>{{order.user.name}}</td>
-									<td>{{order.orderState}}</td>
-									<td>{{order.total}}</td>
-									<td>
-										<button data-ng-click="getOrder(order.id)" type="button"
-											class="btn btn-info">Info</button>
-										<button ng-if="showCompleteButton"
-											data-ng-click="changeOrderState(order.id)" type="button"
-											class="btn btn-success">Completar</button>
-										<button ng-if="showCompleteButton"
-										data-ng-click="deleteOrder(order.id)"
-											class="btn btn-danger">Eliminar</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-			</div>
+          <!-- DataTables Example -->
+          <div class="card mb-3">
+            <div class="card-header">
+              <i class="fas fa-table"></i>
+              Ordenes</div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>Nro order(id)</th>
+                      <th>Usuario</th>
+                      <th>Estado</th>
+                      <th>total</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </thead>
+                  <tfoot>
+                    <tr>
+                      <th>Nro order(id)</th>
+                      <th>Usuario</th>
+                      <th>Estado</th>
+                      <th>total</th>
+                      <th>Acciones</th>
+                    </tr>
+                  </tfoot>
+                  <tbody data-ng-repeat="order in orders">
+                    <tr>
+                      <td>{{order.id}}</td>
+                      <td>{{order.user.userName}}</td>
+                      <td>{{order.orderState}}</td>
+                      <td>{{order.total}}</td>
+                      <td>
+						<button data-ng-click="getOrder(order.id)" type="button" class="btn btn-info" >Info</button>
+						<button data-ng-click="changeOrderState(order.id)" type="button" class="btn btn-success">Completar</button>
+						<button data-ng-click="deleteOrder(order.id)" class="btn btn-danger">Eliminar</button>
+		      		</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
 
-		</div>
-		<!-- /.container-fluid -->
+        </div>
+        <!-- /.container-fluid -->
 
-		<!-- Sticky Footer -->
-		<footer class="sticky-footer">
-			<div class="container my-auto">
-				<div class="copyright text-center my-auto">
-					<span>Copyright © Your Website 2018</span>
-				</div>
-			</div>
-		</footer>
+        <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright � Your Website 2018</span>
+            </div>
+          </div>
+        </footer>
 
-	</div>
-	<!-- /.content-wrapper -->
+      </div>
+      <!-- /.content-wrapper -->
 
-	</div>
-	<!-- /#wrapper -->
+    </div>
+    <!-- /#wrapper -->
 
-	<!-- Scroll to Top Button-->
-	<a class="scroll-to-top rounded" href="#page-top"> <i
-		class="fas fa-angle-up"></i>
-	</a>
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
-	<!-- Logout Modal-->
-	<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog"
-		aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Informacion de
-						la orden</h5>
-					<button class="close" type="button" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<label for="">nro Orden: </label> {{selectedOrder.id}}
-					</p>
-					<label for="">Items: </label>
-					<ul data-ng-repeat="item in selectedOrder.itemsList">
-						<h1>{{item.product.name}}</h1>
-						<li data-ng-repeat="flav in item.flavourList">{{flav.name}}</li>
-					</ul>
-					<p>{{selectedOrder.date | date : 'd MMMM yyyy'}}</p>
-					<!--  <ul >
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Informacion de la orden</h5>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">�</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <label for="">nro Orden: </label>
+              {{selectedOrder.id}}</p>
+ 			  <label for="">Items: </label>
+ 			  <ul data-ng-repeat="item in selectedOrder.itemsList" >
+			  		<h1>{{item.product.name}}</h1>
+				  <li data-ng-repeat="flav in item.flavourList">{{flav.name}}</li>
+     		 </ul> 
+     		 <p>{{selectedOrder.date | date : 'd MMMM yyyy'}}</p>
+			  <!--  <ul >
 				  <li data-ng-repeat="prod in selectedOrder.items.products">{{prod}}</li>
      		 </ul>
      		 <label for="">Sabores: </label>
@@ -241,34 +226,33 @@
      		  <label for="">Fecha:</label>
               <p>{{selectedOrder.date | date : 'd MMMM yyyy'}}</p>-->
 
-				</div>
-				<div class="modal-footer">
-					<button class="btn btn-secondary" type="button"
-						data-dismiss="modal">OK</button>
-				</div>
-			</div>
-		</div>
-	</div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary" type="button" data-dismiss="modal">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-	<!-- Bootstrap core JavaScript-->
-	<script src="../resources/vendor/jquery/jquery.min.js"></script>
-	<script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-	<!-- Core plugin JavaScript-->
-	<script src="../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <!-- Core plugin JavaScript-->
+    <script src="${pageContext.request.contextPath}/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- Page level plugin JavaScript-->
-	<script src="../resources/vendor/chart.js/Chart.min.js"></script>
-	<script src="../resources/vendor/datatables/jquery.dataTables.js"></script>
-	<script src="../resources/vendor/datatables/dataTables.bootstrap4.js"></script>
+    <!-- Page level plugin JavaScript-->
+    <script src="${pageContext.request.contextPath}/resources/vendor/chart.js/Chart.min.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/datatables/jquery.dataTables.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/vendor/datatables/dataTables.bootstrap4.js"></script>
 
-	<!-- Custom scripts for all pages-->
-	<script src="../resources/js/sb-admin.min.js"></script>
+    <!-- Custom scripts for all pages-->
+    <script src="${pageContext.request.contextPath}/resources/js/sb-admin.min.js"></script>
 
-	<!-- Demo scripts for this page-->
-	<script src="../resources/js/demo/datatables-demo.js"></script>
-	<script src="../resources/js/demo/chart-area-demo.js"></script>
-	<script src="../resources/js/controllers/ordersController.js"></script>
+    <!-- Demo scripts for this page-->
+    <script src="${pageContext.request.contextPath}/resources/js/demo/datatables-demo.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/demo/chart-area-demo.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/js/controllers/ordersController.js"></script>
 
 
 </body>

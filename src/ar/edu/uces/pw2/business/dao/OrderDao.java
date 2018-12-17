@@ -33,6 +33,7 @@ public class OrderDao {
 	private ProductDao productDao;
 	private UserDao userDao;
 	
+	private List<Order> ordersList = new ArrayList<Order>();
 
 	public OrderDao() {
 		super();
@@ -53,7 +54,7 @@ public class OrderDao {
 		List<Order> orders = (List<Order>) session.createQuery("from Order").list();
 		List<Order> ordersToreturn=new ArrayList<>();
 		for(Order order : orders) {
-			if(order.getOrderState().equals("Pendiente"))
+			if(order.getOrderState().equals("P"))
 				ordersToreturn.add(order);
 		}
 		return ordersToreturn;
@@ -68,11 +69,7 @@ public class OrderDao {
 
 	
 	@Transactional(readOnly = false)
-	public Order createOrder(Order newOrder) throws JsonGenerationException, JsonMappingException, IOException {
-		String jsonOrder;
-		QRCodeGenerator newQr=new QRCodeGenerator();
-		SendMail mail = new SendMail();
-		
+	public Order createOrder(Order newOrder) {
 		Session session = sessionFactory.getCurrentSession();	
 		for (Item item : newOrder.getItemsList()) {
 			List<Flavour> persistentFlavours = new ArrayList<Flavour>();
@@ -83,7 +80,7 @@ public class OrderDao {
 			
 			item.setProduct(productDao.getProductById(item.getProduct().getId()));
 		}
-		
+		//		newOrder.setUser(userDao.findByID(newOrder.getUser().getId()));
 		newOrder.setUser(userDao.getUserByID(newOrder.getUser().getId()));
 		session.merge(newOrder);
 		System.out.println(System.getProperty("user.dir"));
@@ -91,7 +88,7 @@ public class OrderDao {
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		jsonOrder = ow.writeValueAsString(newOrder);
 		try {
-			newQr.generateQRCodeImage(jsonOrder, 350, 350, 
+			newQr.generateQRCodeImage(jsonOrder, 350, 350,
 					System.getProperty("user.dir")+"/prograweb2/order.qr");
 			System.out.println();
 			mail.sendEmail("web2alumax@gmail.com", "web2alumax@gmail.com", "QR para pedido", "Por favor acerquese al local para recoger su pedido");
@@ -102,7 +99,7 @@ public class OrderDao {
             System.out.println("Could not generate QR Code, IOException :: " + e.getMessage());
         }
 		/////////////////
-		
+
 		return newOrder;
 	}
 	@Transactional(readOnly = false)
@@ -111,6 +108,7 @@ public class OrderDao {
 		Session session=sessionFactory.getCurrentSession();
 		Order anOrder;	
 		Item anItem;
+		List<Item> listaItem=new ArrayList<>();
 		
 		anOrder=(Order)session.get(Order.class, id);
 		

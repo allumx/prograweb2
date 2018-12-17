@@ -90,7 +90,8 @@ angular.module('userOrderApp', []).controller('userOrderCtrl', function($scope, 
     }
 
     var createObjOrder = function() {
-        var user = {
+ /*
+    	var user = {
             "id": 1,
             "name": "Jose",
             "email": "pepe@hotmail.com",
@@ -99,7 +100,8 @@ angular.module('userOrderApp', []).controller('userOrderCtrl', function($scope, 
             "password": "1234",
             "type": "2"
         };
-        $scope.order.user = user;
+        */
+        //$scope.order.user = user;
         $scope.order.qr = null;
         $scope.order.orderType = "1";
         $scope.order.date = new Date().setHours(0,0,0,0);
