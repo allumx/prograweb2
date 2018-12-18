@@ -61,22 +61,22 @@
 
 		<security:form-login login-page="/login"
 			default-target-url="/redirectByRole" always-use-default-target="true"
-			authentication-failure-url="/login?error" username-parameter="username"
+			authentication-failure-url="/login?error" username-parameter="email"
 			password-parameter="password" />
 
-		<security:logout logout-success-url="/welcome" />
+		<security:logout logout-success-url="/login" />
 	</security:http>
 
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:jdbc-user-service
 				data-source-ref="myDataSource"
-				users-by-username-query="SELECT username, password, enabled FROM USERS WHERE username = ?"
+				users-by-username-query="SELECT email, password, enabled FROM USERS WHERE email = ?"
 				authorities-by-username-query="SELECT u.username, a.authority
  											FROM USERS u 
  											 INNER JOIN USERS_AUTHORITIES ua ON u.id = ua.users_id 
  											 INNER JOIN AUTHORITIES a ON ua.authorities_id = a.id 
- 											WHERE u.username = ?" />
+ 											WHERE u.email = ?" />
 			<security:password-encoder hash="md5" />
 		</security:authentication-provider>
 	</security:authentication-manager>

@@ -44,7 +44,7 @@
           >
             <div class="form-group">
               <div class="form-label-group">
-                <input name="username"
+                <input name="email"
                  type="text"
                  id="inputEmail"
                  class="form-control"
@@ -76,7 +76,7 @@
              >Login</button>
           </form>
           <div class="text-center">
-            <a class="d-block small mt-3" href="register.jsp">Register an Account</a>
+            <a class="d-block small mt-3" href="${pageContext.request.contextPath}/register">Register an Account</a>
             <a class="d-block small" href="forgot-password.html">Forgot Password?</a>
           </div>
         </div>

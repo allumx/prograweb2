@@ -79,7 +79,7 @@ public class UserDao {
 	}
 
 	@Transactional(readOnly = true)
-	public User findByID(int id){
+	public User getUserByID(int id){
 
 		Session session = sessionFactory.getCurrentSession();
 

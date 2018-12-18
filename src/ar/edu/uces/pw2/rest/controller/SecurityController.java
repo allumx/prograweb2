@@ -41,7 +41,8 @@ public class SecurityController {
 
 	@RequestMapping(value="/registerUser")
 	public String createUser(@ModelAttribute("user")User user){
-
+		
+		
 		securityService.saveUser(user);
 
 		return "redirect:login";

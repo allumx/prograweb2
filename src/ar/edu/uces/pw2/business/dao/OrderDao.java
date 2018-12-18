@@ -19,6 +19,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.google.zxing.WriterException;
 
@@ -32,7 +33,7 @@ public class OrderDao {
 	private FlavourDao flavourDao;
 	private ProductDao productDao;
 	private UserDao userDao;
-	
+
 	private List<Order> ordersList = new ArrayList<Order>();
 
 	public OrderDao() {
@@ -40,26 +41,27 @@ public class OrderDao {
 	}
 
 	@Autowired
-	public OrderDao(SessionFactory sessionFactory,FlavourDao flavourDao, ProductDao productDao, UserDao userDao  ) {
+	public OrderDao(SessionFactory sessionFactory, FlavourDao flavourDao,
+			ProductDao productDao, UserDao userDao) {
 		this.sessionFactory = sessionFactory;
 		this.flavourDao = flavourDao;
-		this.productDao= productDao;
+		this.productDao = productDao;
 		this.userDao = userDao;
 	}
 
-	
 	@Transactional(readOnly = true)
 	public List<Order> getAllOrders() {
 		Session session = sessionFactory.getCurrentSession();
-		List<Order> orders = (List<Order>) session.createQuery("from Order").list();
-		List<Order> ordersToreturn=new ArrayList<>();
-		for(Order order : orders) {
-			if(order.getOrderState().equals("P"))
+		List<Order> orders = (List<Order>) session.createQuery("from Order")
+				.list();
+		List<Order> ordersToreturn = new ArrayList<>();
+		for (Order order : orders) {
+			if (order.getOrderState().equals("P"))
 				ordersToreturn.add(order);
 		}
 		return ordersToreturn;
 	}
-	
+
 	@Transactional(readOnly = true)
 	public Order findById(int id) {
 		Session session = sessionFactory.getCurrentSession();
@@ -67,82 +69,97 @@ public class OrderDao {
 		return order;
 	}
 
-	
 	@Transactional(readOnly = false)
 	public Order createOrder(Order newOrder) {
-		Session session = sessionFactory.getCurrentSession();	
+		String jsonOrder;
+		QRCodeGenerator newQr = new QRCodeGenerator();
+		SendMail mail = new SendMail();
+		Session session = sessionFactory.getCurrentSession();
+		org.springframework.security.core.userdetails.User logedUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder
+				.getContext().getAuthentication().getPrincipal();
+		User user = userDao.findByName(logedUser.getUsername());
+		newOrder.setUser(user);
 		for (Item item : newOrder.getItemsList()) {
 			List<Flavour> persistentFlavours = new ArrayList<Flavour>();
 			for (Flavour flavour : item.getFlavourList()) {
 				persistentFlavours.add(flavourDao.getFlavour(flavour.getId()));
 			}
 			item.setFlavourList(persistentFlavours);
-			
-			item.setProduct(productDao.getProductById(item.getProduct().getId()));
+
+			item.setProduct(productDao
+					.getProductById(item.getProduct().getId()));
 		}
-		//		newOrder.setUser(userDao.findByID(newOrder.getUser().getId()));
+		// newOrder.setUser(userDao.findByID(newOrder.getUser().getId()));
 		newOrder.setUser(userDao.getUserByID(newOrder.getUser().getId()));
 		session.merge(newOrder);
 		System.out.println(System.getProperty("user.dir"));
-		////////Max Qr Test/////
-		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		jsonOrder = ow.writeValueAsString(newOrder);
+		// //////Max Qr Test/////
+		ObjectWriter ow = new ObjectMapper().writer()
+				.withDefaultPrettyPrinter();
 		try {
+			jsonOrder = ow.writeValueAsString(newOrder);
+
 			newQr.generateQRCodeImage(jsonOrder, 350, 350,
-					System.getProperty("user.dir")+"/prograweb2/order.qr");
+					System.getProperty("user.dir") + "/prograweb2/order.qr");
 			System.out.println();
-			mail.sendEmail("web2alumax@gmail.com", "web2alumax@gmail.com", "QR para pedido", "Por favor acerquese al local para recoger su pedido");
+			mail.sendEmail("web2alumax@gmail.com", "web2alumax@gmail.com",
+					"QR para pedido",
+					"Por favor acerquese al local para recoger su pedido");
 			System.out.println("Mail mandado");
-        } catch (WriterException e) {
-            System.out.println("Could not generate QR Code, WriterException :: " + e.getMessage());
-        } catch (IOException e) {
-            System.out.println("Could not generate QR Code, IOException :: " + e.getMessage());
-        }
-		/////////////////
+		} catch (WriterException e) {
+			System.out
+					.println("Could not generate QR Code, WriterException :: "
+							+ e.getMessage());
+		} catch (IOException e) {
+			System.out.println("Could not generate QR Code, IOException :: "
+					+ e.getMessage());
+		}
+		// ///////////////
 
 		return newOrder;
 	}
+
 	@Transactional(readOnly = false)
 	public void deleteOrder(int id) {
-		
-		Session session=sessionFactory.getCurrentSession();
-		Order anOrder;	
+
+		Session session = sessionFactory.getCurrentSession();
+		Order anOrder;
 		Item anItem;
-		List<Item> listaItem=new ArrayList<>();
-		
-		anOrder=(Order)session.get(Order.class, id);
-		
+		List<Item> listaItem = new ArrayList<>();
+
+		anOrder = (Order) session.get(Order.class, id);
+
 		for (Item item : anOrder.getItemsList()) {
-			anItem=(Item)session.get(Item.class, item.getId());
+			anItem = (Item) session.get(Item.class, item.getId());
 			anItem.getFlavourList().clear();
 			session.update(anItem);
 		}
 		anOrder.getItemsList().clear();
 		session.update(anOrder);
 		session.delete(anOrder);
-	
+
 		session.flush();
-		
+
 	}
-	
+
 	@Transactional(readOnly = false)
 	public void changeState(int id) {
 		Session session = sessionFactory.getCurrentSession();
-		Order order=(Order)session.get(Order.class, id);
+		Order order = (Order) session.get(Order.class, id);
 		order.setOrderState("C");
 		session.update(order);
 	}
+
 	@Transactional(readOnly = false)
 	public List<Order> filterProfitByDate(FilterDate filterDate) {
-		Session session = sessionFactory.getCurrentSession();	
+		Session session = sessionFactory.getCurrentSession();
 		Criteria crit = session.createCriteria(Order.class)
-				.add(Restrictions.ge("date", filterDate.getFrom() ))
-				.add(Restrictions.lt("date",filterDate.getTo()))
-				.add(Restrictions.eq("orderState","C"));
+				.add(Restrictions.ge("date", filterDate.getFrom()))
+				.add(Restrictions.lt("date", filterDate.getTo()))
+				.add(Restrictions.eq("orderState", "C"));
 		List<Order> orderList = crit.list();
 		return orderList;
 	}
-
 
 	/**
 	 * delete an item from an order

@@ -42,7 +42,7 @@
                <i class="fas fa-user-circle fa-fw"></i>
                </a>
                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                  <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                  <a class="dropdown-item" href="${pageContext.request.contextPath}/j_spring_security_logout">Logout</a>
                </div>
             </li>
          </ul>

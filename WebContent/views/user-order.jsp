@@ -54,8 +54,7 @@
 			</a>
 				<div class="dropdown-menu dropdown-menu-right"
 					aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="#" data-toggle="modal"
-						data-target="#logoutModal">Logout</a>
+					<a class="dropdown-item" href="${pageContext.request.contextPath}/j_spring_security_logout">Logout</a>
 				</div></li>
 		</ul>
 	</nav>
@@ -109,7 +108,7 @@
          						 <span class="badge badge-pill badge-danger">X</span>
         						</a>
       						</p>
-							<img class="card-img-top customCardImage" src={{item.product.imagePath}} ng-clock>
+							<img class="card-img-top customCardImage" src="${pageContext.request.contextPath}{{item.product.imagePath}}" ng-clock>
 							<div class="card-body customCardBody">
 								<h5 class="card-title">{{item.product.name}}</h5>
 							</div>
