@@ -37,7 +37,7 @@
 			id="sidebarToggle" href="#">
 			<i class="fas fa-bars"></i>
 		</button>
-		<a class="navbar-brand mr-1" href="index.html">Heladeria</a>
+		<a class="navbar-brand mr-1" href="/views/home.jsp">Heladeria alfredo</a>
 		<!-- Navbar Search -->
 		<form
 			class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -61,8 +61,7 @@
 	<div id="wrapper">
 		<!-- Sidebar -->
 		<ul class="sidebar navbar-nav">
-			<li class="nav-item active"><a class="nav-link"
-				href="index.html"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Pedir</span>
+			<li class="nav-item active"><a class="nav-link"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Pedir</span>
 			</a></li>
 			<li class="nav-item"><a class="nav-link" href="charts.html">
 					<i class="fas fa-fw fa-chart-area"></i> <span>Mis Ordenes</span>

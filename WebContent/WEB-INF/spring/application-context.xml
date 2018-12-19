@@ -50,21 +50,24 @@
 			access="isAuthenticated()" />
 
 		<security:intercept-url pattern="/views/orders.jsp"
-			access="isAuthenticated()" />
+			access="hasRole('ROLE_ADMIN')" />
 
 		<security:intercept-url pattern="/views/flavours.jsp"
-			access="isAuthenticated()" />
+			access="hasRole('ROLE_ADMIN')" />
 
 		<security:intercept-url pattern="/admin/**"
 			access="isAuthenticated()" />
 		<security:intercept-url pattern="/**" access="permitAll" />
 
-		<security:form-login login-page="/login"
-			default-target-url="/redirectByRole" always-use-default-target="true"
-			authentication-failure-url="/login?error" username-parameter="email"
+		<security:form-login 
+			login-page="/login"
+			default-target-url="/redirectByRole" 
+			always-use-default-target="true"
+			authentication-failure-url="/login?error"
+			 username-parameter="email"
 			password-parameter="password" />
-
-		<security:logout logout-success-url="/login" />
+			
+		<security:logout logout-success-url="/views/home.jsp" />
 	</security:http>
 
 	<security:authentication-manager>
