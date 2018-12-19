@@ -73,6 +73,7 @@ public class SecurityService {
 		userToSave.setAuthorites(authorities);
 		return userDao.save(userToSave);
 	}
+	
 
 	public User updateUser(User userToUpdate){
 		return userDao.update(userToUpdate);

@@ -52,11 +52,10 @@ public class OrderDao {
 	@Transactional(readOnly = true)
 	public List<Order> getAllOrders() {
 		Session session = sessionFactory.getCurrentSession();
-		List<Order> orders = (List<Order>) session.createQuery("from Order")
-				.list();
+		List<Order> orders = (List<Order>) session.createQuery("from Order").list();
 		List<Order> ordersToreturn = new ArrayList<>();
 		for (Order order : orders) {
-			if (order.getOrderState().equals("P"))
+			if (order.getOrderState().equals("Pendiente"))
 				ordersToreturn.add(order);
 		}
 		return ordersToreturn;
@@ -74,11 +73,13 @@ public class OrderDao {
 		String jsonOrder;
 		QRCodeGenerator newQr = new QRCodeGenerator();
 		SendMail mail = new SendMail();
+		
 		Session session = sessionFactory.getCurrentSession();
 		org.springframework.security.core.userdetails.User logedUser = (org.springframework.security.core.userdetails.User) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal();
-		User user = userDao.findByName(logedUser.getUsername());
+		User user = userDao.findByEmail(logedUser.getUsername());
 		newOrder.setUser(user);
+		
 		for (Item item : newOrder.getItemsList()) {
 			List<Flavour> persistentFlavours = new ArrayList<Flavour>();
 			for (Flavour flavour : item.getFlavourList()) {
@@ -89,8 +90,7 @@ public class OrderDao {
 			item.setProduct(productDao
 					.getProductById(item.getProduct().getId()));
 		}
-		// newOrder.setUser(userDao.findByID(newOrder.getUser().getId()));
-		newOrder.setUser(userDao.getUserByID(newOrder.getUser().getId()));
+		
 		session.merge(newOrder);
 		System.out.println(System.getProperty("user.dir"));
 		// //////Max Qr Test/////
@@ -101,11 +101,11 @@ public class OrderDao {
 
 			newQr.generateQRCodeImage(jsonOrder, 350, 350,
 					System.getProperty("user.dir") + "/prograweb2/order.qr");
-			System.out.println();
+			
 			mail.sendEmail("web2alumax@gmail.com", "web2alumax@gmail.com",
 					"QR para pedido",
-					"Por favor acerquese al local para recoger su pedido");
-			System.out.println("Mail mandado");
+					user.getUserName()+ " su pedido ha sido registrado por favor acerquese al local para retirar su helado");
+			//System.out.println("Mail mandado");
 		} catch (WriterException e) {
 			System.out
 					.println("Could not generate QR Code, WriterException :: "

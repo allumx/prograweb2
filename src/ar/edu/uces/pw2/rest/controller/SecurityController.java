@@ -1,6 +1,8 @@
 package ar.edu.uces.pw2.rest.controller;
 
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jca.context.SpringContextResourceAdapter;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-
+import ar.edu.uces.pw2.business.dao.UserDao;
 import ar.edu.uces.pw2.business.domain.User;
 import ar.edu.uces.pw2.business.service.SecurityService;
 
@@ -20,7 +23,8 @@ import ar.edu.uces.pw2.business.service.SecurityService;
 public class SecurityController {
 
 	SecurityService securityService;
-
+	
+	
 	public SecurityController() {
 		super();
 	}
@@ -28,7 +32,7 @@ public class SecurityController {
 	@Autowired
 	public SecurityController(SecurityService securityService) {
 		super();
-		this.securityService = securityService;
+		this.securityService = securityService;	
 	}
 
 	@RequestMapping(value="/register")
@@ -40,12 +44,29 @@ public class SecurityController {
 	}
 
 	@RequestMapping(value="/registerUser")
-	public String createUser(@ModelAttribute("user")User user){
+	public ModelAndView createUser(@ModelAttribute("user")User user){
+		User usuario=new User();
+		usuario=securityService.findUserByEmail(user.getEmail());
+		ModelAndView model = new ModelAndView();
+		if(usuario!=null) {
+			model.setViewName("register");
+			model.addObject("userMail", user.getEmail());
+			model.addObject("testUser", "existente");
+		}
+		else {	
+			user.setEnabled(true);
+			securityService.saveUser(user);
+			model.setViewName("login");
+		}
 		
 		
+		
+		return model;
+		//return model;
+		/*user.setEnabled(true);
 		securityService.saveUser(user);
-
-		return "redirect:login";
+		 */
+		//return "redirect:register";
 	}
 	
 	
@@ -80,6 +101,7 @@ public class SecurityController {
 			model.addObject("msg", "You've been logged out successfully.");
 		}
 		model.setViewName("login");
+		
 
 		return model;
 	}

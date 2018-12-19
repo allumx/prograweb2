@@ -37,6 +37,16 @@
       <div class="card card-register mx-auto mt-5">
         <div class="card-header">Register an Account</div>
         <div class="card-body">
+         <c:choose>
+    		<c:when test="${testUser=='existente'}">
+        		<p style="color:red;">Ya existe una cuenta con el mail ${userMail} intente con otro mail</p>
+        		<br />
+    		</c:when>    
+    		<c:otherwise>
+        		
+        		<br />
+    		</c:otherwise>
+		</c:choose>
         <form:form method="POST" action="registerUser" modelAttribute="user" name="registerForm">
             <div class="form-group">
               <div class="form-row">
@@ -121,7 +131,10 @@
         </div>
       </div>
     </div>
-
+   
+   
+	
+	
     <!-- Bootstrap core JavaScript-->
     <script src="${pageContext.request.contextPath}/resources/vendor/jquery/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
