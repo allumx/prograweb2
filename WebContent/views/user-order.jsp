@@ -37,7 +37,7 @@
 			id="sidebarToggle" href="#">
 			<i class="fas fa-bars"></i>
 		</button>
-		<a class="navbar-brand mr-1" href="/views/home.jsp">Heladeria alfredo</a>
+		<a class="navbar-brand mr-1" href="views/home.jsp">Heladeria alfredo</a>
 		<!-- Navbar Search -->
 		<form
 			class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -62,9 +62,6 @@
 		<!-- Sidebar -->
 		<ul class="sidebar navbar-nav">
 			<li class="nav-item active"><a class="nav-link"> <i class="fas fa-fw fa-tachometer-alt"></i> <span>Pedir</span>
-			</a></li>
-			<li class="nav-item"><a class="nav-link" href="charts.html">
-					<i class="fas fa-fw fa-chart-area"></i> <span>Mis Ordenes</span>
 			</a></li>
 		</ul>
 		<div id="content-wrapper" class="container">
@@ -121,6 +118,7 @@
 						<div>
 							<h4>TOTAL: $ {{getCost()}}</h4>
 						</div>
+						<input type="checkbox" data-ng-model="needQrCode" ng-change="isCheked(needQrCode)"> Enviar a mi domicilio
 						<div>
 							<button class="btn btn-success" data-ng-click="completeOrder()"
 								type="button">Completar orden</button>

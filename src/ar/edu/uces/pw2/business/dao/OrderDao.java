@@ -92,6 +92,7 @@ public class OrderDao {
 		}
 		
 		session.merge(newOrder);
+		
 		System.out.println(System.getProperty("user.dir"));
 		// //////Max Qr Test/////
 		ObjectWriter ow = new ObjectMapper().writer()
@@ -102,9 +103,9 @@ public class OrderDao {
 			newQr.generateQRCodeImage(jsonOrder, 350, 350,
 					System.getProperty("user.dir") + "/prograweb2/order.qr");
 			
-			mail.sendEmail("web2alumax@gmail.com", "web2alumax@gmail.com",
+			mail.sendEmail("web2alumax@gmail.com", user.getEmail(),
 					"QR para pedido",
-					user.getUserName()+ " su pedido ha sido registrado por favor acerquese al local para retirar su helado");
+					user.getUserName()+ " su pedido ha sido registrado por favor acerquese al local para retirar su helado", newOrder.getQr());
 			//System.out.println("Mail mandado");
 		} catch (WriterException e) {
 			System.out

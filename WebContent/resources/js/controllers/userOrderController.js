@@ -7,7 +7,9 @@ angular.module('userOrderApp', []).controller('userOrderCtrl', function($scope, 
     $scope.canshowFlavours = false;
     $scope.canShowPartialOrder = false;
     $scope.selectedFlavours = [];
+    $scope.needQrCode = false;
     var port = window.location.port;
+    
 
     $scope.getFlavours = function() {
         $http.get('http://localhost:'+port+'/PW2SpringMVCBase/getFlavours').then(function(response) {
@@ -61,6 +63,10 @@ angular.module('userOrderApp', []).controller('userOrderCtrl', function($scope, 
         $scope.canshowFlavours = true;
         setBtnUnselect();
     }
+    
+    $scope.isCheked = function(value) {
+    	$scope.needQrCode = value;
+    }
 
     $scope.getCost = function() {
         var total = 0;
@@ -102,13 +108,15 @@ angular.module('userOrderApp', []).controller('userOrderCtrl', function($scope, 
         };
         */
         //$scope.order.user = user;
-        $scope.order.qr = null;
+        $scope.order.qr = $scope.needQrCode.toString();
+        debugger
         $scope.order.orderType = "1";
         $scope.order.date = new Date().setHours(0,0,0,0);
         $scope.order.total = $scope.getCost();
         $scope.order.orderState = "Pendiente";
         $scope.order.itemsList = $scope.itemsList;
     }
+    
     $scope.deleteItem=function(index){
     	$scope.itemsList.splice(index,1);
     	if(!$scope.itemsList.length)

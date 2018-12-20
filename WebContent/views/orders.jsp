@@ -44,7 +44,7 @@
 			<i class="fas fa-bars"></i>
 		</button>
 
-		<a class="navbar-brand mr-1" href="index.html">Heladeria</a>
+		<a class="navbar-brand mr-1" href="http://localhost:8085/PW2SpringMVCBase/views/home.jsp">Heladeria</a>
 
 		<!-- Navbar Search -->
 		<form
@@ -80,7 +80,7 @@
 					<i class="fas fa-fw fa-chart-area"></i> <span>Usuarios</span>
 			</a></li>
 			<li class="nav-item"><a class="nav-link"
-				href="http://localhost:8080/PW2SpringMVCBase/views/flavours.jsp">
+				href="http://localhost:8085/PW2SpringMVCBase/views/flavours.jsp">
 					<i class="fas fa-fw fa-table"></i> <span>Gustos</span>
 			</a></li>
 		</ul>

@@ -25,7 +25,7 @@ public class SendMail {
 			super();
 		}
 
-		public boolean sendEmail(String from, String to, String subject, String message) {
+		public boolean sendEmail(String from, String to, String subject, String message, String needQr) {
 
 			Properties props = new Properties();
 			props.put("mail.smtp.host", "smtp.gmail.com");
@@ -61,12 +61,16 @@ public class SendMail {
 				multipart.addBodyPart(messageBodyPart);
 
 				// second part (the image)
+				Boolean sendQr = Boolean.parseBoolean(needQr);
+				if(sendQr) {
 				messageBodyPart = new MimeBodyPart();
+				
 				DataSource fds = new FileDataSource(
 						System.getProperty("user.dir")+"/prograweb2/order.qr");
 
 				messageBodyPart.setDataHandler(new DataHandler(fds));
 				messageBodyPart.setHeader("Content-ID", "<image>");
+				}
 
 				multipart.addBodyPart(messageBodyPart);
 				mimeMessage.setContent(multipart);
