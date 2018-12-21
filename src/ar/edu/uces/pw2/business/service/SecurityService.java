@@ -50,8 +50,11 @@ public class SecurityService {
 	}
 	
 	public User giveAdminRole(User user){
+		List<Authority> authorities = new ArrayList<Authority>();
+		authorities.add(findAuthoritiesByName("ROLE_ADMIN"));
+		user.setAuthorites(authorities);
 		return userDao.update(user);
-	}
+		}
 
 	public List<Authority> findAuthoritiesByUser(String name){
 
@@ -81,9 +84,24 @@ public class SecurityService {
 		return userDao.save(userToSave);
 	}
 	
+	public User saveAdminUser(User userToSave){
+
+		List<Authority> authorities = new ArrayList<Authority>();
+		authorities.add(findAuthoritiesByName("ROLE_ADMIN"));
+
+		String passEncripted = MD5Encriptator.getMD5EncryptedValue(userToSave.getPassword());
+		userToSave.setPassword(passEncripted);
+		userToSave.setAuthorites(authorities);
+		return userDao.save(userToSave);
+	}
+	
 
 	public User updateUser(User userToUpdate){
-		return userDao.update(userToUpdate);
+		List<Authority> authorities = new ArrayList<Authority>();
+		authorities.add(findAuthoritiesByName("ROLE_ADMIN"));
+		userToUpdate.setAuthorites(authorities);
+		
+		return userToUpdate;
 	}
 	
 

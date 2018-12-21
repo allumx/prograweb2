@@ -127,12 +127,11 @@ public class UserDao {
 
 	@Transactional(readOnly = false)
 	public User update(User toUpdateUser){
-		String id = Integer.toBinaryString(toUpdateUser.getId());
-		
-		Session session = sessionFactory.getCurrentSession();
-		session.createQuery("UPDATE USERS_AUTHORITIES SET AUTHORITIES_ID = 2 WHERE USERS_ID = 37").list();
 
+		Session session = sessionFactory.getCurrentSession();
+		session.delete(toUpdateUser);
 		return toUpdateUser;
+		
 	}
 
 	@Transactional(readOnly = false)

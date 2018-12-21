@@ -52,11 +52,24 @@ public class SecurityController {
 	    return allUsers;
 	}
 	
-	@RequestMapping(value="/giveAdminRole")
-	public User giveAdminRole(User user){
-		securityService.giveAdminRole(user);
-		return user;
+	@RequestMapping(value="/registerUserAdmin")
+	public ModelAndView createAdminUser(@ModelAttribute("userd")User user){
+		User usuario=new User();
+		usuario=securityService.findUserByEmail(user.getEmail());
+		ModelAndView model = new ModelAndView();
+		if(usuario!=null) {
+			model.setViewName("register");
+			model.addObject("userMail", user.getEmail());
+			model.addObject("testUser", "existente");
+		}
+		else {	
+			user.setEnabled(true);
+			securityService.saveUser(user);
+			model.setViewName("login");
+		}
+		return model;
 	}
+	
 	
 
 	@RequestMapping(value="/registerUser")
