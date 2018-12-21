@@ -55,14 +55,14 @@ public class SendMail {
 				// first part (the html)
 				BodyPart messageBodyPart = new MimeBodyPart();
 				//String htmlText = "<H1>"+ message +"&quot;&lt;/H1&gt;&lt;img src=E:\Luciana\DeveloperTools\Eclipse\eclipse\prograweb2\order.qr&gt;&quot;
-				String htmlText = "<H1>"+ message +"</H1><img src=\"cid:image\">";
+				String htmlText =  message +"<img src=\"cid:image\">";
 				messageBodyPart.setContent(htmlText, "text/html");
 				// add it
 				multipart.addBodyPart(messageBodyPart);
 
 				// second part (the image)
 				Boolean sendQr = Boolean.parseBoolean(needQr);
-				if(sendQr) {
+				if(!sendQr) {
 				messageBodyPart = new MimeBodyPart();
 				
 				DataSource fds = new FileDataSource(
@@ -70,9 +70,10 @@ public class SendMail {
 
 				messageBodyPart.setDataHandler(new DataHandler(fds));
 				messageBodyPart.setHeader("Content-ID", "<image>");
+				multipart.addBodyPart(messageBodyPart);
 				}
 
-				multipart.addBodyPart(messageBodyPart);
+				
 				mimeMessage.setContent(multipart);
 
 				Transport tr = s.getTransport("smtp");

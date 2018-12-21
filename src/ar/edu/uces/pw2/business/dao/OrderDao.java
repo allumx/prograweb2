@@ -104,8 +104,9 @@ public class OrderDao {
 					System.getProperty("user.dir") + "/prograweb2/order.qr");
 			
 			mail.sendEmail("web2alumax@gmail.com", user.getEmail(),
-					"QR para pedido",
-					user.getUserName()+ " su pedido ha sido registrado por favor acerquese al local para retirar su helado", newOrder.getQr());
+					"QR para pedido","<section class='masthead bg-primary text-white text-center'>"
+		+"<center><h1>Heladeria el gordoFreddy</h1></center>"
+							+"<h1>"+user.getUserName()+ generateBodyMail(newOrder), newOrder.getQr());
 			//System.out.println("Mail mandado");
 		} catch (WriterException e) {
 			System.out
@@ -161,7 +162,36 @@ public class OrderDao {
 		List<Order> orderList = crit.list();
 		return orderList;
 	}
-
+	public String generateBodyMail(Order newOrder) {
+		if(newOrder.getQr().toString().equals("false")) {
+			return " su pedido ha sido registrado por favor acerquese al local para retirar su helado</h1>"
+							+ genHtmlCode(newOrder);
+		}
+		else
+			return " su pedido ha sido registrado pronto lo estara recibiendo</h1>"
+						+genHtmlCode(newOrder);
+					/*+ "<h2>1 Kilo</h2>\n" + 
+					"\n" + 
+					"<ul>\n" + 
+					"  <li>Vainilla</li>\n" + 
+					"  <li>Chocolate</li>\n" + 
+					"  <li>Dulce de Leche</li>\n" + 
+					"</ul>  \n" + 
+					"";*/
+	}
+	private String genHtmlCode(Order newOrder) {
+		String html="";
+		
+		for(Item item : newOrder.getItemsList()) {
+			html=html+"<h2>"+item.getProduct().getName()+"</h2>\n\n<ul>\n";
+			for(Flavour flavour : item.getFlavourList()) {
+				html=html+"<li>"+flavour.getName()+"</li>";
+			}
+			html=html+"</ul>\n";
+		}
+		html=html+"\n"+"<h2>Total a abonar: $" +newOrder.getTotal()+".-</h2></section>";
+		return html;
+	}
 	/**
 	 * delete an item from an order
 	 * 
