@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import ar.edu.uces.pw2.business.dao.AuthorityDao;
 import ar.edu.uces.pw2.business.dao.UserDao;
@@ -45,6 +48,10 @@ public class SecurityService {
 	public User findUserByEmail(String email){
 		return userDao.findByEmail(email);
 	}
+	
+	public User giveAdminRole(User user){
+		return userDao.update(user);
+	}
 
 	public List<Authority> findAuthoritiesByUser(String name){
 
@@ -78,6 +85,7 @@ public class SecurityService {
 	public User updateUser(User userToUpdate){
 		return userDao.update(userToUpdate);
 	}
+	
 
 	public boolean validateCredentias(String userName, String userPass) {
 

@@ -96,20 +96,7 @@ angular.module('userOrderApp', []).controller('userOrderCtrl', function($scope, 
     }
 
     var createObjOrder = function() {
- /*
-    	var user = {
-            "id": 1,
-            "name": "Jose",
-            "email": "pepe@hotmail.com",
-            "address": "rivadavia 2331",
-            "phone": "111111",
-            "password": "1234",
-            "type": "2"
-        };
-        */
-        //$scope.order.user = user;
         $scope.order.qr = $scope.needQrCode.toString();
-        debugger
         $scope.order.orderType = "1";
         $scope.order.date = new Date().setHours(0,0,0,0);
         $scope.order.total = $scope.getCost();

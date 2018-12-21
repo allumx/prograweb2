@@ -1,20 +1,13 @@
 package ar.edu.uces.pw2.business.dao;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.ObjectWriter;
 import org.hibernate.Criteria;
-import org.hibernate.Hibernate;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -25,16 +18,13 @@ import com.google.zxing.WriterException;
 
 import ar.edu.uces.pw2.business.domain.*;
 
-//
 @Repository
 public class OrderDao {
 	private SessionFactory sessionFactory;
-	private ItemDao itemDao;
 	private FlavourDao flavourDao;
 	private ProductDao productDao;
 	private UserDao userDao;
 
-	private List<Order> ordersList = new ArrayList<Order>();
 
 	public OrderDao() {
 		super();
@@ -93,13 +83,18 @@ public class OrderDao {
 		
 		session.merge(newOrder);
 		
+		generateEMail(newOrder, newQr, mail, user);
+		return newOrder;
+	}
+
+	private void generateEMail(Order newOrder, QRCodeGenerator newQr, SendMail mail, User user) {
 		System.out.println(System.getProperty("user.dir"));
-		// //////Max Qr Test/////
-		ObjectWriter ow = new ObjectMapper().writer()
-				.withDefaultPrettyPrinter();
+		
+		String jsonOrder;
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		
 		try {
 			jsonOrder = ow.writeValueAsString(newOrder);
-
 			newQr.generateQRCodeImage(jsonOrder, 350, 350,
 					System.getProperty("user.dir") + "/prograweb2/order.qr");
 			
@@ -107,7 +102,7 @@ public class OrderDao {
 					"QR para pedido","<section class='masthead bg-primary text-white text-center'>"
 		+"<center><h1>Heladeria el gordoFreddy</h1></center>"
 							+"<h1>"+user.getUserName()+ generateBodyMail(newOrder), newOrder.getQr());
-			//System.out.println("Mail mandado");
+			
 		} catch (WriterException e) {
 			System.out
 					.println("Could not generate QR Code, WriterException :: "
@@ -116,9 +111,6 @@ public class OrderDao {
 			System.out.println("Could not generate QR Code, IOException :: "
 					+ e.getMessage());
 		}
-		// ///////////////
-
-		return newOrder;
 	}
 
 	@Transactional(readOnly = false)
@@ -127,7 +119,6 @@ public class OrderDao {
 		Session session = sessionFactory.getCurrentSession();
 		Order anOrder;
 		Item anItem;
-		List<Item> listaItem = new ArrayList<>();
 
 		anOrder = (Order) session.get(Order.class, id);
 
@@ -148,7 +139,7 @@ public class OrderDao {
 	public void changeState(int id) {
 		Session session = sessionFactory.getCurrentSession();
 		Order order = (Order) session.get(Order.class, id);
-		order.setOrderState("C");
+		order.setOrderState("Completada");
 		session.update(order);
 	}
 
@@ -157,11 +148,12 @@ public class OrderDao {
 		Session session = sessionFactory.getCurrentSession();
 		Criteria crit = session.createCriteria(Order.class)
 				.add(Restrictions.ge("date", filterDate.getFrom()))
-				.add(Restrictions.lt("date", filterDate.getTo()))
-				.add(Restrictions.eq("orderState", "C"));
+				.add(Restrictions.le("date", filterDate.getTo()))
+				.add(Restrictions.eq("orderState", "Completada"));
 		List<Order> orderList = crit.list();
 		return orderList;
 	}
+	
 	public String generateBodyMail(Order newOrder) {
 		if(newOrder.getQr().toString().equals("false")) {
 			return " su pedido ha sido registrado por favor acerquese al local para retirar su helado</h1>"
@@ -170,18 +162,10 @@ public class OrderDao {
 		else
 			return " su pedido ha sido registrado pronto lo estara recibiendo</h1>"
 						+genHtmlCode(newOrder);
-					/*+ "<h2>1 Kilo</h2>\n" + 
-					"\n" + 
-					"<ul>\n" + 
-					"  <li>Vainilla</li>\n" + 
-					"  <li>Chocolate</li>\n" + 
-					"  <li>Dulce de Leche</li>\n" + 
-					"</ul>  \n" + 
-					"";*/
 	}
+	
 	private String genHtmlCode(Order newOrder) {
 		String html="";
-		
 		for(Item item : newOrder.getItemsList()) {
 			html=html+"<h2>"+item.getProduct().getName()+"</h2>\n\n<ul>\n";
 			for(Flavour flavour : item.getFlavourList()) {
@@ -192,6 +176,7 @@ public class OrderDao {
 		html=html+"\n"+"<h2>Total a abonar: $" +newOrder.getTotal()+".-</h2></section>";
 		return html;
 	}
+	
 	/**
 	 * delete an item from an order
 	 * 

@@ -1,7 +1,6 @@
 package ar.edu.uces.pw2.rest.controller;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -13,10 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import ar.edu.uces.pw2.business.dao.FlavourDao;
 import ar.edu.uces.pw2.business.dao.OrderDao;
 import ar.edu.uces.pw2.business.domain.*;
 
@@ -80,12 +77,14 @@ public class OrderController {
 		System.out.println("OrderController:changeOrderState");
 		orderDao.changeState(id);		 
 	}
+	
 	@RequestMapping(value="/filterProfitByDate", method=RequestMethod.POST)
 	@ResponseBody
 	public List<Order> filterProfitByDate(@RequestBody FilterDate filterDate) {
 		List<Order> orderList= orderDao.filterProfitByDate(filterDate);
 		return orderList;
 	}
+	
 	@Autowired
 	public void setOrderDao(OrderDao orderDao) {
 		this.orderDao = orderDao;

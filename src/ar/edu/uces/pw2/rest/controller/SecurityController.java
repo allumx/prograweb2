@@ -1,21 +1,22 @@
 package ar.edu.uces.pw2.rest.controller;
 
 
-import javax.servlet.http.HttpServletResponse;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jca.context.SpringContextResourceAdapter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ar.edu.uces.pw2.business.dao.UserDao;
+import ar.edu.uces.pw2.business.domain.Flavour;
 import ar.edu.uces.pw2.business.domain.User;
 import ar.edu.uces.pw2.business.service.SecurityService;
 
@@ -42,6 +43,21 @@ public class SecurityController {
 
 		return "register";
 	}
+	
+	@RequestMapping(value="/getUsers", method=RequestMethod.GET)
+	@ResponseBody
+	public List<User> getAllUsers() {
+		System.out.println("UserController:getallUsers");
+		List<User>  allUsers = securityService.findAllUsers();
+	    return allUsers;
+	}
+	
+	@RequestMapping(value="/giveAdminRole")
+	public User giveAdminRole(User user){
+		securityService.giveAdminRole(user);
+		return user;
+	}
+	
 
 	@RequestMapping(value="/registerUser")
 	public ModelAndView createUser(@ModelAttribute("user")User user){
@@ -58,15 +74,7 @@ public class SecurityController {
 			securityService.saveUser(user);
 			model.setViewName("login");
 		}
-		
-		
-		
 		return model;
-		//return model;
-		/*user.setEnabled(true);
-		securityService.saveUser(user);
-		 */
-		//return "redirect:register";
 	}
 	
 	

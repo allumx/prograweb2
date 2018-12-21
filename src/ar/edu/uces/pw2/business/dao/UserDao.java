@@ -74,15 +74,12 @@ public class UserDao {
 	public List<User> findAll(){
 		Session session = sessionFactory.getCurrentSession();
         List<User> userList  = (List<User>) session.createQuery("from User").list();
-
         return userList;
 	}
 
 	@Transactional(readOnly = true)
 	public User getUserByID(int id){
-
 		Session session = sessionFactory.getCurrentSession();
-
         return (User) session.get(User.class, id);
 	}
 
@@ -130,9 +127,10 @@ public class UserDao {
 
 	@Transactional(readOnly = false)
 	public User update(User toUpdateUser){
-
+		String id = Integer.toBinaryString(toUpdateUser.getId());
+		
 		Session session = sessionFactory.getCurrentSession();
-		session.update(toUpdateUser);
+		session.createQuery("UPDATE USERS_AUTHORITIES SET AUTHORITIES_ID = 2 WHERE USERS_ID = 37").list();
 
 		return toUpdateUser;
 	}

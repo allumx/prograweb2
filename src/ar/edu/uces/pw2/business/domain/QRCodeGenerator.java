@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
-import org.springframework.stereotype.Component;
 
 /*
  * https://www.callicoder.com/generate-qr-code-in-java-using-zxing/
