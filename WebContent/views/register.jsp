@@ -125,9 +125,7 @@
               >
               Register</button>
           </form:form>
-          <div class="text-center">
-            <a class="d-block small mt-3" href="login.jsp">Login Page</a>
-          </div>
+          
         </div>
       </div>
     </div>

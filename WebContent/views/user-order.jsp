@@ -37,7 +37,7 @@
 			id="sidebarToggle" href="#">
 			<i class="fas fa-bars"></i>
 		</button>
-		<a class="navbar-brand mr-1" href="views/home.jsp">Heladeria alfredo</a>
+		<a class="navbar-brand mr-1" href="http://localhost:8080/PW2SpringMVCBase/views/home.jsp">Heladeria alfredo</a>
 		<!-- Navbar Search -->
 		<form
 			class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -70,7 +70,7 @@
 				<h1> Ordenar </h1>
 					<form>
 						<div class="form-group">
-							<label for="formGroupExampleInput">Heladosss</label> <select
+							<label for="formGroupExampleInput">Helados</label> <select
 								id="combo"
 								ng-options="product as product.name for product in products"
 								ng-model="selectedProduct" ng-change="selectProduct()"></select>

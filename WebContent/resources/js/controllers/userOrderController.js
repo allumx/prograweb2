@@ -54,7 +54,8 @@ angular.module('userOrderApp', []).controller('userOrderCtrl', function($scope, 
     $scope.completeOrder = function() {
     	createObjOrder();
         $http.post('http://localhost:'+port+'/PW2SpringMVCBase/createOrder', $scope.order).then(function(response) {
-            alert("Su orden fue crada exitosamente!")
+        	location.reload();
+        	alert("Su orden fue crada exitosamente, estara recibiendo un email con el detalle de su pedido");
         });
     }
 

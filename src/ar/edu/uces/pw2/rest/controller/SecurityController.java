@@ -117,18 +117,22 @@ public class SecurityController {
 	@RequestMapping(value="/redirectByRole")
 	public String redirectByRole(){
 
-		org.springframework.security.core.userdetails.User user =  
-				(org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		try {
+			org.springframework.security.core.userdetails.User user =  
+					(org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		String pageToRedirect = "";
-		
-		if (user.getAuthorities().toString().contains("ROLE_ADMIN")){
-			pageToRedirect = "orders";
-		} else {
-			pageToRedirect = "user-order";
+			String pageToRedirect = "";
+			
+			if (user.getAuthorities().toString().contains("ROLE_ADMIN")){
+				pageToRedirect = "orders";
+			} else {
+				pageToRedirect = "user-order";
+			}
+			
+			return pageToRedirect;
+		} catch (Exception e) {
+			return "login";
 		}
-		
-		return pageToRedirect;
 	}
 	
 	

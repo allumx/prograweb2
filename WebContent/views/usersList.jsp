@@ -40,7 +40,7 @@
             id="sidebarToggle" href="#">
          <i class="fas fa-bars"></i>
          </button>
-         <a class="navbar-brand mr-1" href="index.html">Heladeria</a>
+         <a class="navbar-brand mr-1" href="http://localhost:8080/PW2SpringMVCBase/views/home.jsp">Heladeria</a>
          <!-- Navbar Search -->
          <form
             class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -139,7 +139,7 @@
          <div class="modal-dialog" role="document">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Editar gusto</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Crear usuario administrador</h5>
                   <button class="close" type="button" data-dismiss="modal"
                      aria-label="Close">
                   <span aria-hidden="true">×</span>
@@ -165,13 +165,13 @@
                      required="required" ng-model="user.email" />
                   </div>
                   <div>
-                  <label for="">telefono: </label>
+                  <label for="">Telefono: </label>
                   <form:input path="phone" type="number" id="inputPhone"
                      class="form-control" placeholder="Telefono" required="required"
                      ng-model="user.phone" />
                   </div>
                   <div>
-                  <label for="">telefono: </label>
+                  <label for="">Contraseña: </label>
                   <form:input path="password" type="password" id="confirmPassword"
                      class="form-control" placeholder="Contraseña" required="required"
                      ng-model="user.password" />

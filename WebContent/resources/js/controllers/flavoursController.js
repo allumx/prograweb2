@@ -43,7 +43,10 @@ angular.module('flavoursApp',[]).controller('flavoursCtrl',function($scope, $htt
             $scope.deleteFlavour = function(id){
         		  $http.delete('http://localhost:'+port+'/PW2SpringMVCBase/deleteFlavour/'+ id).then(function(response){
         			  location.reload();
-                  }); 
+                  }).catch(function(e){
+                	  debugger;
+                	  alert("Se deberan borrar todas las ordenes para eliminar este gusto.");
+                  });
             }
             
             $scope.init = function(){

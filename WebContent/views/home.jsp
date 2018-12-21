@@ -60,7 +60,7 @@
 			<hr class="star-light">
 			<h2 class="font-weight-light mb-0">El helado tecnologico mas rico</h2>
 			<form
-				action="http://localhost:8080${pageContext.request.contextPath}/login">
+				action="http://localhost:8080${pageContext.request.contextPath}/redirectByRole">
 				<button class="btn btn-outline-dark" type="submit"
 					style="width: 50%; margin-top: 40px;">login</button>
 			</form>
