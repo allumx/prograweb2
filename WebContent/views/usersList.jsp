@@ -75,8 +75,8 @@
             <li class="nav-item active"><a class="nav-link"
                href="charts.html"> <i class="fas fa-fw fa-chart-area"></i> <span>Usuarios</span></a>
             </li>
-            <li class="nav-item active"><a class="nav-link"
-               href="tables.html"> <i class="fas fa-fw fa-table"></i> <span>Gustos</span></a>
+            <li class="nav-item"><a class="nav-link"
+               href="http://localhost:8080/PW2SpringMVCBase/views/flavours.jsp"> <i class="fas fa-fw fa-table"></i> <span>Gustos</span></a>
             </li>
          </ul>
          <div id="content-wrapper">
@@ -84,9 +84,9 @@
             <!-- DataTables Example -->
             <div class="card mb-3">
                <div class="card-header">
-                  <i class="fas fa-table"></i> Gustos
+                  <i class="fas fa-table"></i> 
                   <button class="btn btn-success" data-toggle="modal"
-                     data-target="#addModal" data-ng-click="" type="button">Agregar</button>
+                     data-target="#addModal" data-ng-click="" type="button">Agregar Administrador</button>
                </div>
                <div class="card-body">
                   <div class="table-responsive">
@@ -134,7 +134,7 @@
          class="fas fa-angle-up"></i>
       </a>
       <!-- Logout Modal-->
-      <div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+      <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
          aria-labelledby="exampleModalLabel" aria-hidden="true">
          <div class="modal-dialog" role="document">
             <div class="modal-content">

@@ -43,12 +43,28 @@ public class SecurityController {
 
 		return "register";
 	}
+	
 	@RequestMapping(value="/registerAdmin")
 	public String showRegistrationAdmin(Model model){
 
-		model.addAttribute("user", new User());
+		try {
+			org.springframework.security.core.userdetails.User user =  
+					(org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		return "usersList";
+			String pageToRedirect = "";
+			
+			if (user.getAuthorities().toString().contains("ROLE_ADMIN")){
+				model.addAttribute("user", new User());
+				pageToRedirect = "usersList";
+			} else {
+				pageToRedirect = "user-order";
+			}
+			
+			return pageToRedirect;
+		} catch (Exception e) {
+			return "login";
+		}
+
 	}
 	
 	@RequestMapping(value="/getUsers", method=RequestMethod.GET)
@@ -60,21 +76,21 @@ public class SecurityController {
 	}
 	
 	@RequestMapping(value="/registerUserAdmin")
-	public ModelAndView createAdminUser(@ModelAttribute("userd")User user){
+	public String createAdminUser(@ModelAttribute("user")User user){
 		User usuario=new User();
 		usuario=securityService.findUserByEmail(user.getEmail());
 		ModelAndView model = new ModelAndView();
-		if(usuario!=null) {
+		/*if(usuario!=null) {
 			model.setViewName("register");
 			model.addObject("userMail", user.getEmail());
 			model.addObject("testUser", "existente");
 		}
-		else {	
+		else {	*/
 			user.setEnabled(true);
-			securityService.saveUser(user);
-			model.setViewName("login");
-		}
-		return model;
+			securityService.saveAdminUser(user);
+			model.setViewName("registerAdmin");
+		//}
+		return "usersList";
 	}
 	
 	

@@ -27,7 +27,7 @@
          <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
          <i class="fas fa-bars"></i>
          </button>
-         <a class="navbar-brand mr-1" href="index.html">Heladeria</a>
+         <a class="navbar-brand mr-1" href="http://localhost:8080/PW2SpringMVCBase/views/home.jsp">Heladeria</a>
          <!-- Navbar Search -->
          <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <div class="input-group">
@@ -57,12 +57,12 @@
                </a>
             </li>
             <li class="nav-item">
-               <a class="nav-link" href="charts.html">
+               <a class="nav-link" href="http://localhost:8080/PW2SpringMVCBase/registerAdmin">
                <i class="fas fa-fw fa-chart-area"></i>
                <span>Usuarios</span></a>
             </li>
             <li class="nav-item active">
-               <a class="nav-link" href="tables.html">
+               <a class="nav-link" href=http://localhost:8080/PW2SpringMVCBase/views/orders.jsp">
                <i class="fas fa-fw fa-table"></i>
                <span>Gustos</span></a>
             </li>

@@ -51,6 +51,9 @@
 
 		<security:intercept-url pattern="/views/orders.jsp"
 			access="hasRole('ROLE_ADMIN')" />
+			
+		<security:intercept-url pattern="/registerAdmin"
+			access="hasRole('ROLE_ADMIN')" />
 
 		<security:intercept-url pattern="/views/flavours.jsp"
 			access="hasRole('ROLE_ADMIN')" />
