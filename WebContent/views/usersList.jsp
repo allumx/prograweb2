@@ -101,15 +101,7 @@
                               <th>Telefono</th>
                            </tr>
                         </thead>
-                        <tfoot>
-                           <tr>
-                              <th>Nro(id)</th>
-                              <th>Nombre</th>
-                              <th>email</th>
-                              <th>Direccion</th>
-                              <th>Telefono</th>
-                           </tr>
-                        </tfoot>
+                       
                         <tbody data-ng-repeat="user in users">
                            <tr>
                               <td>{{user.id}}</td>

@@ -43,6 +43,13 @@ public class SecurityController {
 
 		return "register";
 	}
+	@RequestMapping(value="/registerAdmin")
+	public String showRegistrationAdmin(Model model){
+
+		model.addAttribute("user", new User());
+
+		return "usersList";
+	}
 	
 	@RequestMapping(value="/getUsers", method=RequestMethod.GET)
 	@ResponseBody
